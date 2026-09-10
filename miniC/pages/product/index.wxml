@@ -1,0 +1,56 @@
+<!--pages/product/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="商城特惠"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view style="position: relative; width: 100%;">
+      <image src="/img/search.png" class="search-icon" bind:tap="getProductList" />
+      <input value="{{ keyword }}" type="text" class="input-view" placeholder="请输入关键字" placeholder-style="font-size: 28rpx;" bindinput="setValue" />
+    </view>
+    <view class="flex-box-space" style="margin: 25rpx 0; padding: 0 10rpx; box-sizing: border-box;">
+      <view wx:for="{{ typeArray }}" wx:key="uniqe" wx:for-item="type">
+        <view style="position: relative;" data-index="{{ type.index }}" data-type="{{ type.type }}" bind:tap="changeType">
+          <text style="font-size: 30rpx; font-weight: bold;">{{ type.name }}</text>
+          <image wx:if="{{ typeIndex === type.index }}" src="/img/menuActive.png" style="width: 106%; height: 5rpx; position: absolute; bottom: -9rpx; left: 50%; transform: translate(-50%, 0); z-index: -1;"></image>
+        </view>
+      </view>
+    </view>
+    <view style="margin: 25rpx 0; width: 100%; display: {{ product_type === 'coupon' ? 'block' : 'flex' }}; flex-wrap: wrap;">
+      <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="coupon" class="{{ product_type === 'coupon' ? '' : 'flex-wrap-item' }}">
+        <view wx:if="{{ product_type === 'coupon' }}" style="margin: 15rpx 0; background-color: #eaeaea; box-shadow: 0 0 8rpx #afadad; height: 190rpx;" data-id="{{ coupon.pr_coupon_id }}" data-type="coupon" class="flex-box-space" bind:tap="toDetail">
+          <image src="{{ coupon.coupon_cover_url ? IMG_BASE_URL + coupon.coupon_cover_url : '' }}" style="width: 190rpx; height: 100%; background-color: #fff;" mode="aspectFit"/>
+          <view style="width: calc(100% - 195rpx); height: 100%; padding: 20rpx; box-sizing: border-box; font-size: 23rpx; color: #999; background-color: #fff; letter-spacing: 2rpx;">
+            <view class="bold-font nowrap" style="font-size: 28rpx; margin-bottom: 15rpx;">{{ coupon.coupon_name }}</view>
+            <view style="margin-bottom: 5rpx;">
+              <text style="margin-right: 10rpx;">优惠券类型: </text>
+              <text>{{ coupon.coupon_type ? couponType[coupon.coupon_type] : '' }}</text>
+            </view>
+            <view style="margin-bottom: 5rpx;">
+              <text style="margin-right: 10rpx;">{{ amountName[coupon.coupon_type] }}: </text>
+              <text>{{ coupon.coupon_type === '04' ? 1 : coupon.coupon_amount }}</text>
+            </view>
+            <view>
+              <text style="margin-right: 10rpx;">使用时间: </text>
+              <text>{{ coupon.use_start_date + ' ~ ' + coupon.use_end_date }}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:if="{{ product_type === 'eleven' }}">
+          
+        </view>
+        <view wx:if="{{ product_type === 'integral' }}" data-id="{{ product.pr_product_id }}" data-type="{{ product.product_type }}" bind:tap="toDetail">
+          <view class="flex-box" style="height: 370rpx; background-color: #fff; padding: 40rpx; box-sizing: border-box; border-radius: 15rpx 15rpx 0 0;">
+            <image src="{{ product.product_pic_1 ? IMG_BASE_URL + product.product_pic_1 : '' }}" style="width: 100%; height: 100%;" mode="aspectFill"/>
+          </view>
+          <view class="flex-box" style="position: relative; padding: 20rpx 0;">
+            <image src="/img/linearGradient.png" style="transform: rotate(-180deg); left: 0; top: 0; width: 100%; height: 100%; z-index: -1;" class="absolute" />
+            <view class="bold-font" style="font-size: 40rpx;">
+              <text>{{ product.exchange_integral }}</text>
+              <text style="font-size: 23rpx; margin-left: 10rpx;">积分</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

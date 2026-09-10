@@ -1,0 +1,28 @@
+<!--pages/merchantSales/index.wxml-->
+<wxs module="formatUtil" src="../../utils/formatUtil.wxs"></wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view style="position: fixed; bottom: 0rpx; left: 3%; width: 94%; height: 80rpx; line-height: 80rpx; border-radius: 8rpx; background: #8ec31f; color: #fff; text-align: center; margin: 25rpx 0;" bindtap="toSalesDetail">+新增记录</view>
+  <view class="container" style="padding-top: 30rpx; padding-bottom: 100rpx;">
+    <scroll-view style="max-height: 90vh;" scroll-y bindscrolltolower="getMerchantSalesList">
+      <view wx:for="{{ merchantSalesList }}" wx:key="unique" data-id="{{ item.pr_merchant_sales_detail_id }}" class="data-box" style="margin-bottom: 20rpx;" bindtap="toSalesDetail">
+        <view class="data-item flex-box-space">
+          <text class="label">合同编号</text>
+          <text>{{ item.contract_number }}</text>
+        </view>
+        <view class="flex-box-space">
+          <text class="label">销售日期</text>
+          <text class="value">{{ item.sales_date }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text class="label">销售数量</text>
+          <text class="value">{{ item.sales_quantity }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text class="label">销售金额</text>
+          <text class="value">{{ formatUtil.formatMoney(item.sales_amount) }}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

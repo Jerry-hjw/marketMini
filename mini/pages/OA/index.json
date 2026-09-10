@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "menu": "/components/menu/index"
+  },
+  "navigationBarTitleText": "OA审批"
+}

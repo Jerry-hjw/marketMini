@@ -1,0 +1,12 @@
+<!--pages/authMobile/index.wxml-->
+<view class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container" style="width: 95%;">
+    <view style="width: 100%; padding: 40rpx; box-sizing: border-box; background: #fff; border-radius: 30rpx; text-align: center;">
+      <view class="bold-font">授权手机号注册会员以体验更多权益</view>
+      <view style="width: 90%; margin: 20rpx auto; padding: 25rpx 30rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); border-radius: 40rpx; box-shadow: 0 0 4rpx #afadad;" class="flex-box">
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style="font-size: 28rpx; color: #000; font-weight: bold; padding: 0; background: transparent; margin: 0;">授 权 手 机 号</button>
+      </view>
+    </view>
+  </view>
+</view>

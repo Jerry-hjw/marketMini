@@ -1,0 +1,17 @@
+/* pages/contractApproveDetail/index.wxss */
+.flex-box-space {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eaeaea;
+}
+.data-box .flex-box-space:last-child {
+  border-bottom: none;
+}
+.text {
+  max-width: calc(100% - 160rpx);
+  margin-left: 15rpx;
+  color: #aaa;
+}

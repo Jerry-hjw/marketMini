@@ -1,0 +1,10 @@
+/* pages/user/index.wxss */
+.label {
+  font-size: 28rpx;
+  color: #777;
+}
+.text {
+  font-size: 20rpx;
+  color: #999;
+  letter-spacing: 2rpx;
+}

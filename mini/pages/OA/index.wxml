@@ -1,0 +1,98 @@
+<!--pages/OA/index.wxml-->
+<wxs module="StrUtil">
+	module.exports.includes = function (str1, str2) {
+		return str1.indexOf(str2) !== -1
+	}
+</wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 130rpx;">
+    <!-- <view style="position: relative; margin-bottom: 25rpx;">
+      <image src="/img/search.png" style="position: absolute; left: 15rpx; top: 15rpx; width: 45rpx; height: 45rpx;" />
+      <input type="text" style="width: 100%; height: 70rpx; padding: 10rpx 75rpx; box-sizing: border-box; box-shadow: 0 0 8rpx rgb(194, 193, 193); background-color: rgba(255, 255, 255, 0.2); border-radius: 40rpx;" />
+    </view> -->
+    <view style="padding: 20rpx 25rpx; background: #fff; border-radius: 40rpx; margin-bottom: 25rpx;">
+      <view class="flex-box-space" style="font-size: 28rpx; font-weight: bold;"  data-url="/pages/contractApprove/index?taskType=1" bind:tap="toPage">
+        <view class="flex-box-start">待办 <view wx:if="{{ dataList.length > 0 }}" style="margin: 0 10rpx; width: 30rpx; height: 30rpx; border-radius: 50%; background-color: rgb(245, 60, 35); color: #fff; font-size: 20rpx; text-align: center; line-height: 30rpx;">{{ dataList.length }}</view>></view>
+      </view>
+      <scroll-view wx:if="{{ dataList.length > 0 }}" style="margin-top: 25rpx; font-size: 26rpx; max-height: 400rpx; overflow: auto;" scroll-y>
+        <view wx:for="{{ dataList }}" wx:key="index" class="data-box" style="line-height: 50rpx; width: 99%; margin: 5rpx auto 25rpx;" data-index="{{ index }}" bind:tap="toDetail">
+          <view class="flex-box-space" style="font-weight: bold; color: #000;">
+            <text wx:if="{{ StrUtil.includes(item.type, 'contract') }}">合同编号:</text>
+            <text wx:if="{{ StrUtil.includes(item.type, 'merchant') }}">申请单号:</text>
+            <text wx:if="{{ StrUtil.includes(item.type, 'merchant') || StrUtil.includes(item.type, 'contract') }}">{{ item.code }}</text>
+            <text wx:else>{{ item.name }}</text>
+          </view>
+          <view wx:if="{{ StrUtil.includes(item.type, 'merchant') || StrUtil.includes(item.type, 'contract') }}" class="flex-box-space">
+            <text wx:if="{{ StrUtil.includes(item.type, 'contract') }}">合同名称:</text>
+            <text wx:if="{{ StrUtil.includes(item.type, 'merchant') }}">申请名称:</text>
+            <text>{{ item.name }}</text>
+          </view>
+          <view class="flex-box-space">
+            <text style="color: #000;">提交时间:</text>
+            <text>{{ item.apply_date }}</text>
+          </view>
+          <view style="width: 100%; border-bottom: 1rpx solid #eaeaea; margin: 20rpx 0;"></view>
+          <view class="flex-box-end">
+            <view class="approve-btn" data-index="{{ index }}" catch:tap="toProcess">审核进度</view>
+            <view class="approve-btn" data-index="{{ index }}" data-status="N" catch:tap="toDetail">审核驳回</view>
+            <view class="approve-btn" data-index="{{ index }}" data-status="Y" catch:tap="toDetail">审核通过</view>
+          </view> 
+        </view>
+      </scroll-view>
+      <view wx:else class="flex-box">
+        <view class="flex-box-vertical">
+          <image src="/img/balloon.png" style="width: 100rpx; height: 120rpx; margin-bottom: 15rpx;" />
+          <text class="label-font">暂无待办</text>
+        </view>
+      </view>
+      <view style="width: 100%; border-bottom: 1rpx solid #eaeaea; margin: 20rpx 0;"></view>
+    </view>
+    <view class="flex-box-space">
+      <image src="/img/log.png" style="flex: 1;" mode="widthFix" data-url="/pages/contractApprove/index?taskType=1" bind:tap="toPage"></image>
+      <image src="/img/approve.png" style="flex: 1; margin-left: 15rpx;" data-url="/pages/contractApprove/index?taskType=2" bind:tap="toPage" mode="widthFix"></image>
+    </view>
+    <view class="function-container">
+      <view class="bold-font">合同审核</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList1 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx; position: relative;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+          <view wx:if="{{ item.undoCount }}" style="position: absolute; top: -15rpx; right: 30rpx; width: 30rpx; height: 30rpx; border-radius: 50%; background-color: rgb(245, 60, 35); color: #fff; font-size: 20rpx; text-align: center; line-height: 30rpx;">{{ item.undoCount }}</view>
+        </view>
+      </view>
+      <view class="bold-font" style="margin-top: 40rpx;">营运审核</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList2 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx; position: relative;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+          <view wx:if="{{ item.undoCount }}" style="position: absolute; top: -15rpx; right: 30rpx; width: 30rpx; height: 30rpx; border-radius: 50%; background-color: rgb(245, 60, 35); color: #fff; font-size: 20rpx; text-align: center; line-height: 30rpx;">{{ item.undoCount }}</view>
+        </view>
+      </view>
+      <view class="bold-font" style="margin-top: 40rpx;">支出审核</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList3 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+        </view>
+      </view>
+      <view class="bold-font" style="margin-top: 40rpx;">营销审核</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList4 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx; position: relative;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+          <view wx:if="{{ item.undoCount }}" style="position: absolute; top: -15rpx; right: 30rpx; width: 30rpx; height: 30rpx; border-radius: 50%; background-color: rgb(245, 60, 35); color: #fff; font-size: 20rpx; text-align: center; line-height: 30rpx;">{{ item.undoCount }}</view>
+        </view>
+      </view>
+      <!-- <view class="bold-font" style="margin-top: 40rpx;">事务审核</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList5 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+        </view>
+      </view> -->
+    </view>
+  </view>
+</view>
+
+<menu menuIndex="{{ 3 }}"></menu>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "menu": "/components/menu/index",
+    "navbar": "/components/navbar/index"
+  },
+  "navigationBarTitleText": "个人中心"
+}

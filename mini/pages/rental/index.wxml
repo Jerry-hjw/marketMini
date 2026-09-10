@@ -1,0 +1,37 @@
+<!--index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <image src="/img/bgCover.png" class="bg-img-cover" mode="widthFix"></image>
+  <view class="container" style="padding-bottom: 130rpx;">
+    <swiper indicator-dots="{{ bannerList && bannerList.length > 1 }}" indicator-active-color="#9ae533" autoplay indicator-color="#aaa" autoplay style="margin: 25rpx 0;">
+      <block wx:for="{{ bannerList }}" wx:key="unique" style="width: 100%; height: 250rpx;">
+        <swiper-item>
+          <image src="{{ item.swiper_img_url ? IMG_BASE_URL + item.swiper_img_url : item.img }}" style="width: 100%; height: 100%; border-radius: 10rpx;" data-id="{{ item.pr_swiper_id }}" data-url="{{ item.click_handle_url }}" data-content="{{ item.swiper_content }}" bindtap="swiperClick"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="flex-box-space">
+      <image src="/img/volumn.png" style="flex: 1;" mode="widthFix" data-url="/pages/merchantSales/index" bindtap="toPage"></image>
+      <image src="/img/bill.png" style="flex: 1; margin: 0 15rpx;" mode="widthFix" data-url="/pages/bill/index" bindtap="toPage"></image>
+      <image src="/img/supervise.png" style="flex: 1;" mode="widthFix" data-url="/pages/contractApprove/index?fromApply=true" bind:tap="toPage"></image>
+    </view>
+    <view class="function-container">
+      <view class="bold-font">经营服务</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList1 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+        </view>
+      </view>
+      <view wx:if="{{ functionList2 && functionList2.length > 0 }}" class="bold-font" style="margin-top: 40rpx;">制度规范</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList2 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<menu menuIndex="{{ 1 }}"></menu>

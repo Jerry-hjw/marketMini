@@ -1,0 +1,73 @@
+<!--pages/merchantSalesDetail/index.wxml-->
+<wxs module="formatUtil" src="../../utils/formatUtil.wxs"></wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx;">
+    <view class="data-box">
+      <view class="data-item"><text class="bold-font">商户信息</text></view>
+      <view wx:if="{{ onChooseContract.pr_contract_id }}">
+        <view class="flex-box-space data-item">
+          <text class="label">项目名称</text>
+          <text class="value">{{ onChooseContract.contract_name }}</text>
+        </view>
+        <view class="flex-box-space data-item">
+          <text class="label">合同编号</text>
+          <text class="value">{{ onChooseContract.contract_number }}</text>
+        </view>
+        <view class="flex-box-space data-item">
+          <text class="label">租户名称</text>
+          <text class="value">{{ onChooseContract.customer_name }}</text>
+        </view>
+        <view class="flex-box-space data-item">
+          <text class="label">铺位号</text>
+          <text class="value">{{ onChooseContract.all_unit_name }}</text>
+        </view>
+        <view class="flex-box-space data-item">
+          <text class="label">销售日期</text>
+          <picker value="{{ merchantSalesDetail.sales_date }}" end="{{ merchantSalesDetail.sales_date }}" mode="date" bindchange="setSalesDate" class="value">
+            <view class="flex-box-end">
+              <text>{{ merchantSalesDetail.sales_date }}</text>
+              <image src="/img/ic_right.png" style="width: 15rpx; height: 20rpx; margin-left: 10rpx;"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view wx:else class="container">
+        <view class="data-item" style="text-align: center;" bindtap="chooseContract">点击此处选择合同</view>
+      </view>
+      <view class="flex-box-space data-item">
+        <text class="bold-font">销售明细</text>
+        <!-- <picker range="{{ merchantPaymentMethod }}" range-key="payment_method_name" bindchange="choosePaymentMethod">
+          <view wx:if="{{ !merchantSalesDetail.pr_merchant_sales_detail_id }}" style="width: 80rpx; height: 40rpx; line-height: 40rpx; border-radius: 8rpx; background: #8ce31f; text-align: center; font-size: 22rpx; color: #333;">添加</view>
+        </picker> -->
+      </view>
+      <view class="flex-box-start data-item" style="flex-wrap: wrap;">
+      <view wx:for="{{ merchantSalesDetail.sales_payment_detail }}" wx:key="index" class="flex-box-space data-item" style="width: 49%;">
+        <text class="label" style="min-width: 120rpx;">{{ item.payment_method_name }}</text>
+        <text wx:if="{{ merchantSalesDetail.pr_merchant_sales_detail_id }}" class="value">{{ item.sales_amount }}</text>
+        <input wx:else type="number" value="{{ item.sales_amount }}" data-index="{{ index }}" bindinput="setSalesAmount" style="text-align: right;" />
+      </view>
+      </view>
+      <view class="flex-box-space data-item">
+        <text class="label">合计</text>
+        <text class="value">{{ formatUtil.formatMoney(merchantSalesDetail.sales_amount) }}</text>
+      </view>
+      <view class="flex-box-space data-item" style="border-bottom: none;">
+        <text class="label">销售数量</text>
+        <text wx:if="{{ merchantSalesDetail.pr_merchant_sales_detail_id }}" class="value">{{ merchantSalesDetail.sales_quantity }}</text>
+        <input wx:else type="number" value="{{ merchantSalesDetail.sales_quantity }}" bindinput="setSalesQuantity" class="value" style="text-align: right;" />
+      </view>
+      <view class="data-item" style="border-bottom: none;">
+        <text class="bold-font">上传附件</text>
+        <view class="flex-box-start" style="margin-top: 15rpx;">
+          <view wx:if="{{ !merchantSalesDetail.attachment_url }}" style="width: 130rpx; height: 130rpx; border: 4rpx dotted rgba(68, 144, 87, 0.2); line-height: 130rpx; text-align: center; color: rgba(68, 144, 87, 0.2); font-size: 80rpx;" bindtap="uploadFile">+</view>
+          <view wx:else style="position: relative; width: 130rpx; height: 130rpx; margin: 0 20rpx 20rpx 0; border: 1rpx dotted #eaeaea;">
+            <image wx:if="{{ !merchantSalesDetail.pr_merchant_sales_detail_id }}" class="close-button1" src="../../img/close1.png" data-index="{{ index }}" bindtap="deleteUploadFile"></image>
+            <image src="{{ IMG_BASE_URL + merchantSalesDetail.attachment_url }}" class="evaluate-img" bindtap="showBigImage" mode="aspectFill" data-url="{{ IMG_BASE_URL + upload.src }}"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{ !merchantSalesDetail.pr_merchant_sales_detail_id }}" style="width: 200rpx; height: 55rpx; margin: 50rpx auto; background: #8ce31f; border-radius: 8rpx; text-align: center; line-height: 55rpx; color: #fff;" bindtap="saveMerchantSalesDetail">上传</view>
+  </view>
+</view>

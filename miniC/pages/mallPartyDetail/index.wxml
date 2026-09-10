@@ -1,0 +1,73 @@
+<!--pages/mallPartyDetail/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="活动详情"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view style="width: 100%; position: relative; height: 400rpx;">
+      <!-- 轮播图 -->
+      <swiper indicator-dots="{{ bannerList.length > 1 }}" indicator-active-color="#9ae533" indicator-color="#aaa" autoplay vertical="{{ false }}" style="height: 400rpx; border-radius: 40rpx;" bindchange="setCurrent">
+        <block wx:for="{{ bannerList }}" wx:key="index">
+          <swiper-item>
+            <image src="{{ item }}" style="width: 100%; height: 100%; border-radius: 50rpx;" data-url="{{ item }}" bindtap="previewImage"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="content">
+      <!-- <view class="flex-box-space" style="padding: 20rpx 30rpx; background-color: #9ae533; color: #fff; border-radius: 5rpx 80rpx 0 0;">
+        <view>
+          <text wx:if="{{ party.party_amount }}" class="bold-font" style="color: #ff1725; font-size: 40rpx; margin-right: 10rpx;">{{ party.party_amount }}</text>
+          <text wx:if="{{ party.party_type && party.party_amount }}">{{ amountName[party.party_type] }}</text>
+        </view>
+        <view style="font-size: 26rpx;">倒计时: <text wx:if="{{ party.day }}">{{ party.day }}天</text><text wx:if="{{ party.hour }}"> {{ party.hour }}时</text><text> {{ party.minute }}分</text><text> {{ party.second }}秒</text></view>
+      </view> -->
+      <view class="bold-font" style="margin: 20rpx 0;">{{ party.party_name }}</view>
+      <!-- <view class="float-text">剩余: {{ party.party_quantity || '充足' }}</view> -->
+      <view class="flex-box-start" style="margin: 20rpx 0;">
+        <text class="title">活动时间</text>
+        <text class="float-text">{{ (party.party_start_date || '') + ' ~ ' + (party.party_end_date || '') }}</text>
+      </view>
+      <view class="flex-box-start" style="margin: 20rpx 0;">
+        <text class="title">活动地址</text>
+        <text class="float-text">{{ party.party_address }}</text>
+      </view>
+      <view class="flex-box-start" style="margin: 20rpx 0;">
+        <text class="title">报名时间</text>
+        <text class="float-text">{{ (party.regist_start_date || '') + ' ~ ' + (party.regist_end_date || '') }}</text>
+      </view>
+      <view class="flex-box-start" style="margin: 20rpx 0;">
+        <text class="title">人数限制</text>
+        <text class="float-text">{{ party.number_limit }}</text>
+      </view>
+      <view wx:if="{{ party.regist_integral }}" class="flex-box-start" style="margin: 20rpx 0;">
+        <text class="title">报名积分</text>
+        <text class="float-text">{{ party.regist_integral }}</text>
+      </view>
+      <view wx:if="{{ party.regist_money }}" class="flex-box-start" style="margin: 20rpx 0;">
+        <text class="title">报名金额</text>
+        <text class="float-text">{{ party.regist_money }}</text>
+      </view>
+      <view class="flex-box-space" style="margin: 20rpx 0;">
+        <text class="title">活动内容:</text>
+        <view wx:if="{{ !infoVisible }}" class="float-text" bindtap="changeProductInfoVisible">——点击展开活动内容——</view>
+        <view wx:else class="float-text" bindtap="changeProductInfoVisible">——点击折叠活动内容——</view>
+      </view>
+      <view wx:if="{{ infoVisible }}">
+        <rich-text wx:if="{{ party.party_info }}" nodes="{{ party.party_info || '暂无内容' }}" style="font-size: 22rpx; color: #999;"></rich-text>
+        <view wx:else style="width: 400rpx; margin: 0 auto; padding: 10rpx 30rpx; box-sizing: border-box; border-radius: 50rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); text-align: center; letter-spacing: 4rpx; font-size: 26rpx;" bind:tap="toRedirect">点击查看活动详情</view>
+      </view>
+    </view>
+  </view>
+  <view class="fixed flex-box-end" style="background: #fff; padding: 20rpx 30rpx; box-sizing: border-box;">
+    <!-- <view class="flex-box-start">
+      <text class="bold-font" style="color: #ff1725; font-size: 40rpx;">{{ totalPrice }}</text>
+      <view class="flex-box-start" style="margin-left: 30rpx; width: 180rpx;">
+        <view class="reduce-button {{ quantity <= 1 ? 'disable-button' : '' }}" bindtap="reduceNum">-</view>
+        <view class="quantity-num">{{ quantity }}</view>
+        <view class="plus-button" bindtap="plusNum">+</view>
+      </view>
+    </view> -->
+    <view wx:if="{{ party.applied === 'Y' }}" style="width: 400rpx; padding: 15rpx 40rpx; box-sizing: border-box; border-radius: 50rpx; background: linear-gradient(to bottom, #e6e6e6, #c4c3c3); text-align: center;" class="bold-font">已 报 名</view>
+    <view wx:else style="width: 400rpx; padding: 15rpx 40rpx; box-sizing: border-box; border-radius: 50rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); text-align: center;" class="bold-font" bind:tap="submitOrder">立 即 报 名</view>
+  </view>
+</view>

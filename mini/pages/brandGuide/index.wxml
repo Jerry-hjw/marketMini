@@ -1,0 +1,82 @@
+<!--pages/brandGuide/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view wx:if="{{ brandGuide.audit_status === 'N' }}">审核不通过原因: {{ brandGuide.audit_remark }}</view>
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">商户首页基本信息</view>
+      <view class="flex-box-space">
+        <text>品牌:</text>
+        <text class="text">{{ brandGuide.brand_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>店招名称:</text>
+        <input type="text" value="{{ brandGuide.shop_name }}" class="text" data-prop="shop_name" bindinput="setValue" />
+      </view>
+      <view class="flex-box-space">
+        <text>联系电话:</text>
+        <input type="number" value="{{ brandGuide.contact_phone }}" class="text" data-prop="contact_phone" bindinput="setValue" />
+      </view>
+      <view class="flex-box-space">
+        <text>营业时间(开始):</text>
+        <picker mode="time" start="{{ brandGuide.startTime || '6:00' }}" data-prop="startTime" bindchange="setValue">{{ brandGuide.startTime || '请选择' }}</picker>
+      </view>
+      <view class="flex-box-space">
+        <text>营业时间(结束):</text>
+        <picker mode="time" start="21:00" data-prop="endTime" bindchange="setValue">{{ brandGuide.endTime || '请选择' }}</picker>
+      </view>
+      <!-- <view class="flex-box-space">
+        <text>经度:</text>
+        <input type="digit" value="{{ brandGuide.longitude }}" class="text" data-prop="longitude" bindinput="setValue" />
+      </view>
+      <view class="flex-box-space">
+        <text>纬度:</text>
+        <input type="digit" value="{{ brandGuide.latitude }}" class="text" data-prop="latitude" bindinput="setValue" />
+      </view> -->
+      <view class="flex-box-space">
+        <text>地址:</text>
+        <input type="text" value="{{ brandGuide.address }}" class="text" data-prop="address" bindinput="setValue" />
+      </view>
+      <view>
+        <view style="margin: 20rpx 0;">备注:</view>
+        <textarea value="{{ brandGuide.remark }}" data-prop="remark" bindinput="setValue" style="width: 100%; border: 1rpx solid #aaa; border-radius: 10rpx; padding: 5rpx; color: #aaa;" maxlength="500" />
+      </view>
+    </view>
+    <view class="data-box" style="margin: 20rpx 0; font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">商户首页上传内容</view>
+      <view class="flex-box-space" style="border: none;">
+        <text>品牌logo</text>
+        <view wx:if="{{ !brandGuide.logo_img_url }}" class="upload-button" data-prop="logo_img_url" bind:tap="upload">+</view>
+      </view>
+      <view wx:if="{{ brandGuide.logo_img_url }}" class="flex-box-space" style="border: none;">
+        <image src="{{ IMG_BASE_URL + brandGuide.logo_img_url }}" mode="aspectFill" class="image" />
+        <view class="delete-button" data-url="{{ brandGuide.logo_img_url }}" data-prop="logo_img_url" bind:tap="deleteFile">删除</view>
+      </view>
+      <view class="flex-box-space" style="border: none;">
+        <text>封面图</text>
+        <view wx:if="{{ !brandGuide.header_img_url }}" class="upload-button" data-prop="header_img_url" bind:tap="upload">+</view>
+      </view> 
+      <view wx:if="{{ brandGuide.header_img_url }}" class="flex-box-space" style="border: none;">
+        <image src="{{ IMG_BASE_URL + brandGuide.header_img_url }}" mode="aspectFill" class="image" />
+        <view class="delete-button" data-url="{{ brandGuide.header_img_url }}" data-prop="header_img_url" bind:tap="deleteFile">删除</view>
+      </view>
+      <view class="flex-box-space" style="border: none;">
+        <text>视频</text>
+        <view wx:if="{{ !brandGuide.video_url }}" class="upload-button" data-prop="video_url" bind:tap="upload">+</view>
+      </view>
+      <view wx:if="{{ brandGuide.video_url }}" class="flex-box-space" style="border: none;">
+        <video src="{{ IMG_BASE_URL + brandGuide.video_url }}" class="image" />
+        <view class="delete-button" data-url="{{ brandGuide.video_url }}" data-prop="video_url" bind:tap="deleteFile">删除</view>
+      </view>
+      <view class="flex-box-space" style="border: none;"> 
+        <text>轮播图</text>
+        <view wx:if="{{ imgList.length < 5 }}" class="upload-button" data-prop="fileList" bind:tap="upload">+</view>
+      </view>
+      <view wx:for="{{ fileList }}" wx:key="unique" class="flex-box-space" style="border: none;">
+        <image src="{{ IMG_BASE_URL + item.url }}" class="image" mode="aspectFill" />
+        <view class="delete-button" data-url="{{ item.url }}" data-prop="fileList" bind:tap="deleteFile">删除</view>
+      </view>
+    </view>
+    <view wx:if="{{ brandGuide.audit_status !== 'Y' }}" style="width: 100%; height: 80rpx; line-height: 80rpx; margin: 40rpx auto;" class="primary-button" bind:tap="save">保存</view>
+  </view>
+</view>

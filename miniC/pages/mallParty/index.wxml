@@ -1,0 +1,15 @@
+<!--pages/mallParty/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="活动报名"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <scroll-view style="width: 94%; margin: 20rpx auto; max-height: 90vh; padding: 10rpx; box-sizing: border-box;" scroll-y bindscrolltolower="getMallPartyList">
+    <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="party" style="width: 99%; margin: 10rpx auto; padding-bottom: 20rpx; margin-bottom: 20rpx; border-radius: 30rpx; background-color: #fff; box-shadow: 0 0 8rpx #afadad;" data-id="{{ party.pr_mall_party_id }}" data-type="mallParty" bind:tap="toDetail">
+      <image src="{{ party.party_img_url ? IMG_BASE_URL + party.party_img_url : '' }}" style="width: 100%; height: 350rpx; border-radius: 30rpx 30rpx 0 0;" mode="aspectFill"/>
+      <view class="flex-box-space" style="padding: 10rpx 25rpx; font-size: 24rpx; color: #999; box-sizing: border-box;">
+        <text wx:if="{{ party.number_limit }}">限{{ party.number_limit }}人报名参与</text>
+        <text wx:else>参与人数不限制</text>
+        <text style="color: #9ae533;">活动报名 ></text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,0 +1,53 @@
+<!--components/menu/index.wxml--> 
+<view class="menu">
+  <view style="width: 100%; height: 100%; border-radius: 100rpx; position: relative; display: flex;">
+    <image src="{{ isOpen ? '/img/menuContainer_big.png' : '/img/menuContainer_small.png' }}" style="width: 100%; height: {{ isOpen ? '180rpx' : '165rpx' }}; position: absolute; bottom: 0rpx; left: 50%; transform: translate(-50%, 0); z-index: -1;"></image>
+    <image src="/img/menuBg_small.png" style="width: 102%; height: {{ isOpen ? '180rpx' : '177rpx' }}; position: absolute; bottom: -6rpx; left: 50%; transform: translate(-50%, 0); z-index: -2; opacity: 0.6;"></image>
+    <view class="turn-container" style="width: {{ isOpen ? '440rpx' : '0' }}; height: {{ isOpen ? '220rpx' : '0' }}; bottom: {{ isOpen ? '90rpx' : '-40rpx' }};">
+      <view style="position: relative; width: 220rpx; height: 220rpx; margin: 0 auto; opacity: {{ isOpen ? '1' : '0' }};">
+        <view style="height: {{ isOpen ? '220rpx' : '0' }};" class="prise-container-1">
+          <view class="prise-child-1" data-url="/pages/brandRecommand/index" bind:tap="toDetail">
+            <image src="/img/menu_1.png" class="icon"></image>
+            <text>品牌推荐</text>
+            <view class="line-1"></view>
+          </view>
+        </view>
+        <!-- <view style="height: {{ isOpen ? '220rpx' : '0' }};" class="prise-container-2">
+          <view class="prise-child-2">
+            <image src="/img/menu_2.png" class="icon"></image>
+            <text>热门团购</text>
+            <view class="line-2"></view>
+          </view>
+        </view>
+        <view style="height: {{ isOpen ? '220rpx' : '0' }};" class="prise-container-3">
+          <view class="prise-child-3">
+            <image src="/img/menu_3.png" class="icon"></image>
+            <text>商城活动</text>
+            <view class="line-3"></view>
+          </view>
+        </view> -->
+        <view style="height: {{ isOpen ? '220rpx' : '0' }};" class="prise-container-5">
+          <view class="prise-child-5" data-url="/pages/mallParty/index" bind:tap="toDetail">
+            <image src="/img/menu_3.png" class="icon"></image>
+            <text>商城活动</text>
+            <view class="line-5"></view>
+          </view>
+        </view>
+        <view style="height: {{ isOpen ? '220rpx' : '0' }};" class="prise-container-4">
+          <view class="prise-child-4" data-url="/pages/product/index" bind:tap="toDetail">
+            <image src="/img/menu_4.png" class="icon"></image>
+            <text>商城特惠</text>
+            <view class="line-4"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:for="{{ menuList }}" wx:key="index" wx:for-item="menu" class="menu-item {{ menu.index === menuIndex ? 'active' : '' }}" data-index="{{ menu.index }}" data-url="{{ menu.url }}" bindtap="toPage">
+      <image src="{{ menu.index === menuIndex ? menu.img2 : menu.img }}" class="{{ menu.index === 2 ? (isOpen ? 'bigger-img' : 'big-img') : 'menu-img' }}"></image>
+      <view style="position: relative;">
+        <image wx:if="{{ menu.index === menuIndex }}" src="/img/menuActive.png" style="width: {{ menu.index === 2 ? '110rpx' : '55rpx' }}; height: 5rpx; position: absolute; bottom: 0; left: 50%; transform: translate(-50%, 0); z-index: -1;"></image>
+        <image src="{{ menu.index === menuIndex ? menu.img4 : menu.img3 }}" style="width: {{ menu.index === 2 ? '110rpx' : '55rpx' }}; height: 28rpx;" />
+      </view>
+    </view>
+  </view>
+</view>

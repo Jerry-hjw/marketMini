@@ -1,0 +1,36 @@
+<!--pages/contractApprove/index.wxml-->
+<wxs module="StrUtil">
+	module.exports.includes = function (str1, str2) {
+		return str1.indexOf(str2) !== -1
+	}
+</wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <scroll-view style="margin-top: 25rpx; font-size: 26rpx; color: #aaa; max-height: 90vh; padding-top: 5rpx;" scroll-y bindscrolltolower="getApproveList">
+      <view wx:for="{{ dataList }}" wx:key="index" class="data-box" style="margin-bottom: 25rpx; line-height: 50rpx;" data-index="{{ index }}" bind:tap="toDetail">
+        <view>
+          <view class="flex-box-space" style="font-weight: bold; color: #000;">
+            <text wx:if="{{ StrUtil.includes(item.type, 'contract') }}">合同编号:</text>
+            <text wx:if="{{ StrUtil.includes(item.type, 'merchant') }}">申请单号:</text>
+            <text wx:if="{{ StrUtil.includes(item.type, 'merchant') || StrUtil.includes(item.type, 'contract') }}">{{ item.code }}</text>
+            <text wx:else>{{ item.name }}</text>
+          </view>
+          <view wx:if="{{ StrUtil.includes(item.type, 'merchant') || StrUtil.includes(item.type, 'contract') }}" class="flex-box-space">
+            <text wx:if="{{ StrUtil.includes(item.type, 'contract') }}" style="color: #000;">合同名称:</text>
+            <text wx:if="{{ StrUtil.includes(item.type, 'merchant') }}" style="color: #000;">申请名称:</text>
+            <text style="max-width: calc(100% - 140rpx);">{{ item.name }}</text>
+          </view>
+          <view class="flex-box-space">
+            <text style="color: #000;">提交时间:</text>
+            <text>{{ item.apply_date }}</text>
+          </view>
+        </view>
+        <view wx:if="{{ taskType === 1 }}" style="width: 100%; border-bottom: 1rpx solid #eaeaea; margin: 20rpx 0;"></view>
+        <view wx:if="{{ taskType === 1 }}" class="flex-box-end">
+          <view data-index="{{ index }}" class="approve-btn" catch:tap="toProcess">审核进度</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

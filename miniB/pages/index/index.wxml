@@ -1,0 +1,30 @@
+<!--pages/login/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view class="data-box" style="background: rgba(255, 255, 255, 0.3); border-radius: 30rpx;">
+      <image src="/img/login.png" style="width: 80%; margin: 0 auto;" mode="widthFix"/>
+      <view class="flex-box-vertical">
+        <view class="bold-font" style="font-size: 45rpx; line-height: 70rpx;">欢迎您来到</view>
+        <view class="bold-font" style="font-size: 45rpx; line-height: 70rpx;">玖洲道运营管理系统</view>
+      </view>
+      <!-- <form bindsubmit="login">
+        <view class="flex-box-start" style="margin-top: 40rpx;">
+          <image src="/img/account.png" style="width: 60rpx; height: 60rpx; margin-right: 20rpx;" />
+          <input type="text" value="{{ account }}" name="account" data-prop="account" placeholder="账号" bindinput="setValue" style="width: calc(100% - 90rpx); padding: 10rpx; background: #8be31f34; border-radius: 5rpx; font-size: 28rpx;" />
+        </view>
+        <view class="flex-box-start" style="margin-top: 40rpx;">
+          <image src="/img/password.png" style="width: 60rpx; height: 60rpx; margin-right: 20rpx;" />
+          <input type="safe-password" value="{{ password }}" name="password" data-prop="password" placeholder="密码" bindinput="setValue" style="width: calc(100% - 90rpx); padding: 10rpx; background: #8be31f34; border-radius: 5rpx; font-size: 28rpx;" />
+        </view>
+        <view class="flex-box" style="margin-top: 40rpx;">
+          <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #8ce31f; border-radius: 15rpx; color: #fff; text-align: center; font-size: 30rpx;" form-type="submit">登 录</button>
+          <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #888888; color: #fff; border-radius: 15rpx; text-align: center; font-size: 30rpx;" form-type="reset">重 置</button>
+        </view>
+      </form> -->
+      <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style="padding: 0; margin: 30rpx; width: auto;">
+        <view class="primary-button" style="width: 100%; height: 80rpx; line-height: 80rpx; border-radius: 40rpx 40rpx 0 40rpx;">授权手机号登录</view>
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,72 @@
+<!--pages/productDetail/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="商品详情"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view style="width: 100%; position: relative; height: 400rpx;">
+      <!-- 轮播图 -->
+      <swiper indicator-dots="{{ bannerList.length > 1 }}" indicator-active-color="#9ae533" indicator-color="#aaa" autoplay vertical="{{ false }}" style="height: 400rpx; border-radius: 40rpx;" bindchange="setCurrent">
+        <block wx:for="{{ bannerList }}" wx:key="index">
+          <swiper-item>
+            <image src="{{ item }}" style="width: 100%; height: 100%; border-radius: 50rpx;" data-url="{{ item }}" bindtap="previewImage"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="content">
+      <view class="flex-box-space" style="padding: 20rpx 30rpx; background-color: #9ae533; color: #fff; border-radius: 5rpx 80rpx 0 0;">
+        <view>
+          <text wx:if="{{ product.exchange_integral > 0 }}" class="bold-font" style="color: #ff1725; font-size: 40rpx; margin-right: 10rpx;">{{ product.exchange_integral }}</text>
+          <text wx:else style="font-size: 22rpx;">元</text>
+          <text wx:if="{{ product.exchange_price > 0 }}" class="bold-font" style="color: #ff1725; font-size: 40rpx; margin-right: 10rpx;">{{ product.exchange_price }}</text>
+          <text wx:else style="font-size: 22rpx;">积分</text>
+        </view>
+        <view wx:if="{{ product.product_type === 'seckill' }}" style="font-size: 26rpx;">倒计时: <text wx:if="{{ product.day }}">{{ product.day }}天</text><text wx:if="{{ product.hour }}"> {{ product.hour }}时</text><text> {{ product.minute }}分</text><text> {{ product.second }}秒</text></view>
+      </view>
+      <view class="bold-font" style="margin: 15rpx 0;">{{ product.product_name }}</view>
+      <view class="float-text">剩余: {{ product.inventory_quantity || '充足' }}</view>
+      <view wx:if="{{ product.member_level }}" class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/refresh.png" class="icon" />
+        <text class="title">等级限制</text>
+      </view>
+      <view wx:if="{{ product.member_level }}" class="float-text">{{ memberLevel[product.member_level] + '及以上可' + buyText }}</view>
+      <view wx:if="{{ product.exchange_max }}" class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/refresh.png" class="icon" />
+        <text class="title">数量限制</text>
+      </view>
+      <view wx:if="{{ product.exchange_max }}" class="float-text">{{ '单笔最多可' + buyText + (product.exchange_max) + '个' }}</view>
+      <view class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/date.png" class="icon" />
+        <text class="title">有效期</text>
+      </view>
+      <view class="float-text">{{ (product.get_valid_date || '') + ' 至 ' + (product.use_end_date || '') }}</view>
+      <view class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/time_2.png" class="icon" />
+        <text class="title">使用时间</text>
+      </view>
+      <view class="float-text">{{ (product.use_start_date || '') + ' 至 ' + (product.use_end_date || '') }}</view>
+      <view class="flex-box-space">
+        <view class="flex-box-start" style="width: 300rpx;">
+          <image src="/img/description.png" class="icon" />
+          <text class="title" style="margin: 15rpx 0;">商品介绍:</text>
+        </view>
+        <view wx:if="{{ !infoVisible }}" class="float-text" bindtap="changeProductInfoVisible">——点击展开商品介绍——</view>
+        <view wx:else class="float-text" bindtap="changeProductInfoVisible">——点击折叠商品介绍——</view>
+      </view>
+      <view wx:if="{{ infoVisible }}">
+        <rich-text nodes="{{ product.product_info || '暂无介绍' }}" style="font-size: 22rpx; color: #999;"></rich-text>
+      </view>
+    </view>
+  </view>
+  <view class="fixed flex-box-space" style="background: #fff; padding: 20rpx 30rpx; box-sizing: border-box;">
+    <view class="flex-box-start">
+      <text class="bold-font" style="color: #ff1725; font-size: 40rpx;">{{ totalPrice }}</text>
+      <view class="flex-box-start" style="margin-left: 30rpx; width: 180rpx;">
+        <view class="reduce-button {{ quantity <= 1 ? 'disable-button' : '' }}" bindtap="reduceNum">-</view>
+        <view class="quantity-num">{{ quantity }}</view>
+        <view class="plus-button" bindtap="plusNum">+</view>
+      </view>
+    </view>
+    <view style="width: 400rpx; padding: 15rpx 40rpx; box-sizing: border-box; border-radius: 50rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); text-align: center;" class="bold-font" bind:tap="submitOrder">{{ product.product_type === 'integral' ? '立 即 兑 换' : '立 即 抢 购' }}</view>
+  </view>
+</view>

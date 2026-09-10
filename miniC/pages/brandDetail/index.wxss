@@ -1,0 +1,22 @@
+/* pages/brandDetail/index.wxss */
+.active-item {
+  flex: 1;
+  height: 100%;
+  text-align: center;
+  line-height: 50rpx;
+  transition: 0.3s;
+  background: linear-gradient(to bottom, #cafc85, #9ae533);
+  border-radius: 40rpx;
+  font-size: 24rpx;
+}
+.content {
+  margin: 20rpx 0;
+  padding: 20rpx 40rpx;
+  box-sizing: border-box;
+  border-radius: 40rpx;
+  background-color: #fff;
+}
+.float-text {
+  font-size: 22rpx;
+  color: #aaa;
+}

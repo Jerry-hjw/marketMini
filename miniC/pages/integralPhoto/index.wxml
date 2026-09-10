@@ -1,0 +1,59 @@
+<!--pages/integralPhoto/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="拍照积分"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="max-height: calc(100vh - 200rpx - 150rpx); overflow: auto; margin-top: 25rpx;">
+    <image wx:if="{{ dataList.length === 0 }}" src="/img/integralPhoto.png" class="absolute" style="width: 80%;" mode="widthFix" />
+    <scroll-view wx:else style="max-height: 80vh;" scroll-y bindscrolltolower="getIntegralPhotoList">
+      <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="item" data-id="{{ item.pr_member_consume_id }}" bind:tap="toDetail" class="flex-box-space" style="padding: 20rpx 30rpx; box-sizing: border-box; border-radius: 30rpx; background: #fff; margin-bottom: 25rpx;">
+        <view>
+          <view class="bold-font" style="letter-spacing: 3rpx; margin-bottom: 30rpx;">玖洲道购物公园</view>
+          <view class="flex-box-start" style="color: #666; font-size: 24rpx;">
+            <view style="width: 18rpx; height: 18rpx; border-radius: 50%; background: #999;"></view>
+            <text style="margin: 0 25rpx 0 10rpx; width: 100rpx; text-align-last: justify;">提交时间</text>
+            <text>{{ item.apply_date }}</text>
+          </view>
+          <view wx:if="{{ item.approve_status === 'Y' || item.approve_status === 'N' }}" class="flex-box-start" style="color: {{ item.approve_status === 'Y' ? '#9ae533' : '#dd4949' }}; font-size: 24rpx; margin-top: 10rpx;">
+            <view style="width: 16rpx; height: 16rpx; border-radius: 50%; border: {{ item.approve_status === 'Y' ? '1rpx solid #9ae533;' : '1rpx solid #dd4949;' }} "></view>
+            <text style="margin: 0 25rpx 0 10rpx; width: 100rpx; text-align-last: justify;">{{ item.approve_status === 'Y' ? '已审核' : '已驳回' }}</text>
+            <text>{{ item.approve_date }}</text>
+          </view>
+          <view wx:if="{{ item.integral_value }}" class="flex-box-start" style="color: #9ae533; font-size: 24rpx;">
+            <view style="width: 18rpx; height: 18rpx; border-radius: 50%; background: #9ae533;"></view>
+            <text style="margin: 0 25rpx 0 10rpx; width: 100rpx; text-align-last: justify;">本次积分</text>
+            <text>{{ item.integral_value }}</text>
+          </view>
+        </view>
+        <image src="{{ IMG_BASE_URL + item.receipt_img_url }}" style="width: 140rpx; height: 140rpx; border-radius: 15rpx;" mode="aspectFill" />
+      </view>
+    </scroll-view>
+  </view>
+  <view class="fixed" style="width: 96%; padding-bottom: 30rpx;">
+    <view class="flex-box" style="padding: 25rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); border-radius: 50rpx; box-sizing: border-box;" bind:tap="toDetail">
+      <image src="/img/camera.png" style="width: 30rpx; height: 30rpx; margin-right: 15rpx;" />
+      <text class="bold-font">拍 照 积 分</text>
+    </view>
+    <view class="flex-box">
+      <view style="padding: 10rpx 20rpx; border: 2rpx solid #999; border-radius: 40rpx; color: #999; font-size: 22rpx; margin-top: 20rpx; letter-spacing: 3rpx;" bind:tap="showRules">积分指南</view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{ visible }}" class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container" style="padding: 30rpx; width: 80%; background-color: #fff; border-radius: 30rpx;">
+    <view class="bold-font" style="text-align: center; margin-bottom: 20rpx;">温馨提示</view>
+    <view style="color: #999; font-size: 24rpx;">
+      <view style="margin-bottom: 8rpx;">1.自消费之日起7日内消费小票有效，过期不予以积分;</view>
+      <view style="margin-bottom: 8rpx;">2.购买店铺充值卡不予积分，使用充值卡消费予以积分;</view>
+      <view style="margin-bottom: 8rpx;">3同一店铺3张以上的消费小票及单笔消费满3000元及以上进行积分，需移步至客服中心提供支付凭证进行人工积分，</view>
+      <view style="margin-bottom: 8rpx;">4.10000元及以上现金支付订单，需商户提供支付证明参与积分;</view>
+      <view style="margin-bottom: 8rpx;">5.美容类、牙科、医疗、文化教育不参与拍照积分，请携带消费小票及支付凭证，移步至客服中心进行人工积分;</view>
+      <view style="margin-bottom: 8rpx;">6.银联单、销售单、手写单、外卖单据、预结单点菜单、留台单、复制单、客看单、取餐单、重打印单及手工补打单不作为积分依据，请主动向商户索要正确的消费小票用于积分,</view>
+      <view style="margin-bottom: 8rpx;">7.超市外租店铺、集市、展销特卖、充电站、团购(含当天30000元及以上大宗团购) 、第三平台付款(含银联)、店铺代付款、充值类消费及汽车等消费项目不参与积分，不满1分所需金额不累计;</view>
+      <view style="margin-bottom: 8rpx;">8.不同账号积分不可以合并使用;</view>
+      <view style="margin-bottom: 8rpx;">9.积分当年自然年有效，每年1月3日清零上一年所有积分;</view>
+      <view style="margin-bottom: 8rpx;">10.详情可致电玖洲道购物公园客服中心: 400-930-8688;</view>
+      <view style="margin-bottom: 8rpx;">11.在法律允许范围内，以上会员权益由玖测道购物公园保留最终解释权与修改权。</view>
+    </view>
+  </view>
+</view>

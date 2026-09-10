@@ -1,0 +1,8 @@
+<!--components/navbar/index.wxml-->
+<view style="position: relative; width: 100vw;">
+  <image wx:if="{{ isIndex }}" src="/img/jzdLogo.png" class="bg-img" style="width: 230rpx; height: 50rpx; padding-top: {{ top + 'px' }}; padding-left: 30rpx;"></image>
+  <view wx:else class="title" style="padding-top: {{ top + 'px' }}; display: flex; align-items: center;" bind:tap="back">
+    <image src="/img/back.png" style="width: 35rpx; height: 35rpx; margin-right: 10rpx;"/>
+    <text>{{ title }}</text>
+  </view>
+</view>

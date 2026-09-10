@@ -1,0 +1,57 @@
+<!--index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view class="flex-box-space">
+      <view style="width: 48%; height: 200rpx; background: linear-gradient(to bottom, #0388a0, rgb(46, 219, 231)); border-radius: 8rpx;" class="flex-box-vertical" bindtap="scanCode">
+        <text style="font-size: 35rpx; color: #fff;">扫码核销</text>
+        <image src="/img/scanCode.png" style="width: 40rpx; height: 40rpx; margin-top: 20rpx;"></image>
+      </view>
+      <view style="width: 48%; height: 200rpx; background: linear-gradient(to bottom, #0788f1, rgb(62, 213, 240)); border-radius: 8rpx;" class="flex-box-vertical" bindtap="showPopup">
+        <text style="font-size: 35rpx; color: #fff;">券码核销</text>
+        <image src="/img/node.png" style="width: 40rpx; height: 40rpx; margin-top: 20rpx;"></image>
+      </view>
+    </view>
+    <view class="flex-box-space" style="margin-top: 20rpx;">
+      <view style="width: 48%; height: 200rpx; margin-right: 20rpx; background: linear-gradient(to bottom, #7212f0, rgb(157, 99, 250)); border-radius: 8rpx;" class="flex-box-vertical" bindtap="toVerifyHistory">
+        <text style="font-size: 35rpx; color: #fff;">核销记录</text>
+        <image src="/img/verifyRecord.png" style="width: 40rpx; height: 40rpx; margin-top: 20rpx;"></image>
+      </view>
+    </view>
+    <view style="margin: 20rpx 0; font-size: 28rpx; font-weight: bold;">最近一笔核销记录</view>
+    <view wx:for="{{ verifyHistory }}" wx:key="index" wx:for-item="item" style="background: #fff; border-radius: 8rpx; padding: 10rpx 25rpx; box-shadow: 0 0 8rpx #d3d3d3; line-height: 40rpx;">
+      <view class="flex-box-start">
+        <text class="verify-label">核销券码</text>
+        <text class="verify-value">{{ item.coupon_detail_no }}</text>
+      </view>
+      <view class="flex-box-start">
+        <text class="verify-label">核销内容</text>
+        <text class="verify-value">{{ item.coupon_name }}</text>
+      </view>
+      <view class="flex-box-start">
+        <text class="verify-label">券类型</text>
+        <text class="verify-value">{{ couponType[item.coupon_type] }}</text>
+      </view>
+      <!-- <view class="flex-box-start">
+        <text class="verify-label">核销金额</text>
+        <text class="verify-value">{{ item.price }}</text>
+      </view> -->
+      <view class="flex-box-start">
+        <text class="verify-label">核销时间</text>
+        <text class="verify-value">{{ item.consume_date }}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{ toastVisible }}" bind:close="closePopup" class="toast">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container" style="background-color: #fff;">
+    <form bindsubmit="codeVerify">
+      <input type="number" value="{{ code }}" name="code" maxlength="12" style="width: 100%; margin-bottom: 20rpx; background: rgb(240, 240, 240); height: 180rpx; border-radius: 8rpx; font-size: 50rpx; text-align: center;" placeholder="请输入券码" />
+      <view class="flex-box" style="margin-top: 20rpx;">
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #8ce31f; border-radius: 15rpx; color: #fff; text-align: center; font-size: 30rpx;" form-type="submit">确 认</button>
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #888888; color: #fff; border-radius: 15rpx; text-align: center; font-size: 30rpx;" form-type="reset">重 置</button>
+      </view>
+    </form>
+  </view>
+</view>

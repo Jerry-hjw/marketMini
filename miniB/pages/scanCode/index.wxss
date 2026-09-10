@@ -1,0 +1,16 @@
+/**index.wxss**/
+.verify-label {
+    min-width: 120rpx;
+    text-align-last: justify;
+    margin-right: 30rpx;
+    color: #111;
+    font-size: 26rpx;
+}
+.verify-value {
+    max-width: calc(100% - 150rpx);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #aaa;
+    font-size: 25rpx;
+}

@@ -1,0 +1,32 @@
+<!--pages/doc/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view wx:for="{{ dataList }}" wx:key="unique" data-id="{{ item.pr_customer_contacts_id }}" class="data-box" style="margin-bottom: 20rpx;" bindtap="openDialog">
+      <view class="flex-box-space">
+        <text class="label">文档名称: </text>
+        <text style="font-size: 26rpx; color: #333;">{{ item.doc_title }}</text>
+      </view>
+      <view wx:if="{{ item.attachment_url_1 }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">{{ item.attachment_name_1 }}</text>
+        <view class="btn" data-url="{{ item.attachment_url_1 }}" bind:tap="download">下 载</view>
+      </view>
+      <view wx:if="{{ item.attachment_url_2 }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">{{ item.attachment_name_2 }}</text>
+        <view class="btn" data-url="{{ item.attachment_url_2 }}" bind:tap="download">下 载</view>
+      </view>
+      <view wx:if="{{ item.attachment_url_3 }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">{{ item.attachment_name_3 }}</text>
+        <view class="btn" data-url="{{ item.attachment_url_3 }}" bind:tap="download">下 载</view>
+      </view>
+      <view wx:if="{{ item.attachment_url_4 }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">{{ item.attachment_name_4 }}</text>
+        <view class="btn" data-url="{{ item.attachment_url_4 }}" bind:tap="download">下 载</view>
+      </view>
+      <view wx:if="{{ item.attachment_url_5 }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">{{ item.attachment_name_5 }}</text>
+        <view class="btn" data-url="{{ item.attachment_url_5 }}" bind:tap="download">下 载</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,32 @@
+/* pages/brandRecommand/index.wxss */
+.search-icon {
+  position: absolute;
+  left: 23rpx;
+  top: 23rpx;
+  width: 35rpx;
+  height: 35rpx;
+}
+.input-view {
+  width: 100%;
+  height: 80rpx;
+  padding-left: 70rpx;
+  padding-right: 30rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  background-color: #fff;
+  color: #333;
+  border-radius: 50rpx;
+}
+.filter-item {
+  width: 100%;
+  padding: 25rpx 50rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid rgb(214, 211, 211);
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter-item:last-child {
+  border-bottom: none;
+}

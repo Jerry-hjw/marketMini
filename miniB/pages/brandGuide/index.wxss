@@ -1,0 +1,40 @@
+/* pages/brandGuide/index.wxss */
+.image {
+  width: 160rpx;
+  height: 90rpx;
+}
+.delete-button {
+  width: 80rpx;
+  height: 50rpx;
+  background-color: #8ce31f;
+  border-radius: 5rpx;
+  line-height: 50rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 26rpx;
+}
+.upload-button {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 37rpx;
+  text-align: center;
+  border-radius: 50%;
+  border: 1rpx solid #8ce31f;
+  color: #8ce31f;
+  font-size: 30rpx;
+}
+.flex-box-space {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #eaeaea;
+}
+.data-box .flex-box-space:last-child {
+  border-bottom: none;
+}
+.text {
+  width: calc(100% - 140rpx);
+  text-align: right;
+}

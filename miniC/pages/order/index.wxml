@@ -1,0 +1,24 @@
+<!--pages/order/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="我的订单"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="margin-top: 25rpx;">
+    <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="item" data-id="{{ item.pr_order_id }}" bind:tap="toDetail" style="padding: 20rpx 30rpx; box-sizing: border-box; border-radius: 30rpx; background: #fff; margin-bottom: 25rpx; color: #999; font-size: 26rpx;" bind:tap="toDetail">
+      <view class="flex-box-space">
+        <view class="bold-font nowrap" style="letter-spacing: 3rpx; margin-bottom: 30rpx; max-width: calc(100% - 90rpx);">{{ item.order_name }}</view>
+        <text style="font-size: 26rpx; color: {{ statusColor[item.order_status] }};"></text>
+      </view>
+      <view class="flex-box-space" style="padding-bottom: 20rpx; margin-bottom: 15rpx; border-bottom: 1rpx solid #eaeaea;">
+        <view>
+          <text>{{ item.business_type === 'integral' ? '积分' : '金额' }}： </text>
+          <text style="font-size: 30rpx; color: #ff1725;">{{ item.order_amount || item.order_integral }}</text>
+        </view>
+        <text>{{ item.order_date }}</text>
+      </view>
+      <view class="flex-box-end">
+        <view wx:if="{{ item.order_status === 'unpay' }}" style="padding: 5rpx 20rpx; border: 1rpx solid #666; color: #666; border-radius: 40rpx; margin-right: 20rpx;" data-id="{{ item.pr_order_id }}" bind:tap="payOrder">支付</view>
+        <view style="padding: 5rpx 20rpx; border: 1rpx solid #666; color: #666; border-radius: 40rpx;" data-id="{{ item.pr_order_id }}" catch:tap="toDetail">详情</view>
+      </view>
+    </view>
+  </view>
+</view>

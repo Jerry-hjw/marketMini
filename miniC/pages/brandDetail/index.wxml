@@ -1,0 +1,57 @@
+<!--pages/brandDetail/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="商户详情"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view style="width: 100%; position: relative; height: 400rpx;" bind:touchstart="touchStart" bind:touchend="touchEnd">
+      <video wx:if="{{ activeIndex === 1 && brand.video_url }}" src="{{ IMG_BASE_URL + brand.video_url }}" style="width: 100%; height: 100%; border-radius: 40rpx;" />
+      <!-- <image wx:if="{{ activeIndex === 1 && !brand.video_url }}" src="{{ IMG_BASE_URL + brand.header_img_url }}" style="width: 100%; height: 100%;" mode="aspectFill" data-url="{{ IMG_BASE_URL + item.url }}" bindtap="previewImage" /> -->
+      <!-- 轮播图 -->
+      <swiper wx:if="{{ activeIndex === 2 }}" autoplay vertical="{{ false }}" style="height: 400rpx; border-radius: 40rpx;" bindchange="setCurrent">
+        <block wx:for="{{ bannerList }}" wx:key="index">
+          <swiper-item>
+            <image src="{{ item }}" style="width: 100%; height: 100%; border-radius: 50rpx;" data-url="{{ item }}" bindtap="previewImage"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="flex-box-space" style="position: absolute; left: 50%; bottom: 20rpx; transform: translate(-50%, 0); width: 280rpx; height: 50rpx; border-radius: 40rpx; background-color: rgba(0, 0, 0, 0.3); color: #fff;">
+        <view style="background: {{ activeIndex === 1 ? 'linear-gradient(to bottom, #cafc85, #9ae533)' : 'transparent' }}; color: {{ activeIndex === 1 ? '#333' : '#fff' }};" class="active-item" data-index="{{ 1 }}" bind:tap="setActive">视 频</view>
+        <view style="background: {{ activeIndex === 2 ? 'linear-gradient(to bottom, #cafc85, #9ae533)' : 'transparent' }}; color: {{ activeIndex === 2 ? '#333' : '#fff' }};" class="active-item" data-index="{{ 2 }}" bind:tap="setActive">图 片</view>
+      </view>
+      <view wx:if="{{ activeIndex === 2 && bannerList.length > 0 }}" style="position: absolute; right: 20rpx; bottom: 20rpx; width: 120rpx; height: 50rpx; text-align: center; line-height: 50rpx; font-size: 22rpx; background-color: rgba(0, 0, 0, 0.3); color: #fff; border-radius: 40rpx;">{{ currentNum + ' / ' + bannerList.length }}</view>
+    </view>
+    <view class="content">
+      <view class="bold-font" style="margin-bottom: 10rpx;">{{ brand.shop_name }}</view>
+      <view class="flex-box-space">
+        <view style="max-width: calc(100% - 215rpx); font-size: 26rpx; color: #999;" class="flex-box-vertical">
+          <view class="flex-box-start">
+            <image src="/img/location.png" style="width: 30rpx; height: 35rpx;" />
+            <text style="margin: 10rpx 20rpx;">店铺位置:</text>
+            <text class="nowrap">{{ brand.address }}</text>
+          </view>
+          <view class="flex-box-start">
+            <image src="/img/time.png" style="width: 30rpx; height: 30rpx;" />
+            <text style="margin: 10rpx 20rpx;">营业时间:</text>
+            <text class="nowrap">{{ brand.working_time }}</text>
+          </view>
+          <view class="flex-box-start">
+            <image src="/img/mobile.png" style="width: 30rpx; height: 35rpx;" />
+            <text style="margin: 10rpx 20rpx;">联系电话:</text>
+            <text class="nowrap">{{ brand.contact_phone }}</text>
+          </view>
+        </view>
+        <!-- <image src="" style="width: 200rpx; height: 200rpx; border-radius: 5rpx;" mode="aspectFill"/> -->
+      </view>
+    </view>
+    <view class="content">
+      <view class="flex-box-space">
+        <text style="font-size: 30rpx;">品牌介绍:</text>
+        <view wx:if="{{ !infoVisible }}" class="float-text" bindtap="changeProductInfoVisible">——点击展开品牌介绍——</view>
+        <view wx:else class="float-text" bindtap="changeProductInfoVisible">——点击折叠品牌介绍——</view>
+      </view>
+      <view wx:if="{{ infoVisible }}" style="margin-top: 10rpx;">
+        <rich-text nodes="{{ brand.brand_guide_info || '暂无介绍' }}" style="font-size: 22rpx; color: #999;"></rich-text>
+      </view>
+    </view>
+  </view>
+</view>

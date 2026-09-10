@@ -1,0 +1,44 @@
+<!--pages/brandRecommand/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="品牌推荐"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view style="position: relative; width: 100%;">
+      <image src="/img/search.png" class="search-icon" bind:tap="getBrandList" />
+      <input value="{{ keyword }}" type="text" class="input-view" placeholder="请输入关键字" placeholder-style="font-size: 28rpx;" bindinput="setValue" />
+    </view>
+    <view class="flex-box-space" style="margin: 25rpx 5rpx; position: relative;">
+      <view wx:for="{{ typeArray }}" wx:key="uniqe" wx:for-item="type">
+        <view style="position: relative;" data-index="{{ type.index }}" bind:tap="changeType">
+          <text style="font-size: 30rpx; font-weight: bold;">{{ type.name }}</text>
+          <image wx:if="{{ typeIndex === type.index }}" src="/img/menuActive.png" style="width: 106%; height: 5rpx; position: absolute; bottom: -9rpx; left: 50%; transform: translate(-50%, 0); z-index: -1;"></image>
+        </view>
+      </view>
+      <view style="position: absolute; top: 50rpx; left: -4%; z-index: 51; width: 100vw; max-height: {{ filterList.length > 0 ? '450rpx' : '0' }}; overflow: auto; transition: 0.3s; background-color: #f8f8f8;">
+        <view class="flex-box-space" style="padding: 20rpx 50rpx; border-bottom: 1rpx solid rgb(214, 211, 211); box-sizing: border-box;">
+          <view wx:for="{{ filter }}" wx:key="unique" wx:for-item="f" class="flex-box-start" data-index="{{ f.index }}" bind:tap="changeFilter">
+            <image src="{{ f.index === filterIndex ? f.img1 : f.img2 }}" style="width: 30rpx; height: 30rpx; margin-right: 10rpx;" />
+            <text style="font-size: 26rpx; color: #333;">{{ f.name }}</text>
+          </view>
+        </view>
+        <view wx:for="{{ filterList }}" wx:key="unique" wx:for-item="filter" class="filter-item" data-id="{{ filter.id }}" data-name="{{ filter.name }}" bind:tap="chooseFilter">
+          <text>{{ filter.name }}</text>
+          <image wx:if="{{ filter.id === pr_building_id || filter.id === pr_biz_type_id }}" src="/img/yes.png" style="width: 30rpx; height: 30rpx;" />
+        </view>
+      </view>
+      <view wx:if="{{ filterList.length > 0 }}" style="position: absolute; top: 48rpx; left: -4%; z-index: 50; width: 100vw; height: calc(100vh - {{ top + 'rpx' }} - 35rpx - 100rpx - 50rpx); background-color: rgba(0, 0, 0, 0.3);" bind:tap="closeFilter"></view>
+    </view>
+    <view style="margin: 25rpx 0;">
+      <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="brand" style="padding-bottom: 20rpx; margin-bottom: 20rpx; border-radius: 30rpx; background-color: #fff; box-shadow: 0 0 8rpx #afadad;" data-id="{{ brand.pr_brand_guide_id }}" bind:tap="toDetail">
+        <view style="width: 100%; padding: 20rpx 35rpx; box-sizing: border-box; border-bottom: 1rpx solid #9ae533; margin-bottom: 1rpx;">
+          <view class="bold-font nowrap" style="font-size: 28rpx; margin-bottom: 10rpx;">{{ brand.brand_name }}</view>
+          <view class="flex-box-space">
+            <text style="font-size: 22rpx; color: #999;">{{ brand.address }}</text>
+            <!-- <image src="{{ brand.isCollect ? '/img/isCollect.png' : '/img/outCollect.png' }}" style="width: 30rpx; height: 30rpx;" /> -->
+          </view>
+        </view>
+        <image src="{{ brand.header_img_url ? IMG_BASE_URL + brand.header_img_url : '' }}" style="width: 100%; height: 350rpx;" mode="aspectFill"/>
+      </view>
+    </view>
+  </view>
+</view>

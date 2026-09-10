@@ -1,0 +1,3 @@
+<view class="page">
+  <web-view src="{{ outUrl }}" bindmessage="bindmessage"></web-view>
+</view>

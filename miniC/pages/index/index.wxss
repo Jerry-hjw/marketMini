@@ -1,0 +1,112 @@
+/* pages/index/index.wxss */
+.label {
+  font-size: 23rpx;
+  color: #999;
+  font-family:fantasy;
+}
+.func-text {
+  font-weight: bold;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 30rpx;
+  letter-spacing: 8rpx;
+  margin: 0 16rpx 0 22rpx;
+}
+.price-font {
+  font-size: 35rpx;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  color: #ff1725;
+}
+
+.fan-container {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  color: #9be5332d;
+}
+
+.fan {
+  position: fixed;
+  bottom: 140rpx;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  /* border-radius: 100% 100% 0 0; */
+  transform-origin: bottom center;
+}
+
+.fan-1 {
+  width: 240rpx;
+  height: 120rpx;
+  background-color: #FFC740;
+  border-radius: 120rpx 120rpx 0 0;
+  transform: rotate(0deg);
+  animation: spin 2s linear infinite;
+  animation-play-state:running;
+}
+
+.fan-2 {
+  width: 135px;
+  height: 135px;
+  background-color: #FF6381;
+  animation: spin 7s linear infinite reverse;
+}
+
+.fan-3 {
+  width: 150px;
+  height: 150px;
+  background-color: #87CEEB;
+  animation: spin 6s ease-in-out infinite;
+}
+
+.fan-4 {
+  width: 165px;
+  height: 165px;
+  background-color: #3CB371;
+  animation: spin 5s linear infinite;
+}
+
+.fan-5 {
+  width: 180px;
+  height: 180px;
+  background-color: #BA55D3;
+  animation: spin 4s ease-in-out infinite reverse;
+}
+
+.fan-6 {
+  width: 195px;
+  height: 195px;
+  background-color: #FF7F50;
+  animation: spin 3s linear infinite;
+}
+
+.fan-7 {
+  width: 210px;
+  height: 210px;
+  background-color: #00CED1;
+  animation: spin 2s ease-in-out infinite;
+}
+
+.fan-8 {
+  width: 225px;
+  height: 225px;
+  background-color: #6A5ACD;
+  animation: spin 1s linear infinite reverse;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(-90deg);
+    width: 0;
+    height: 0;
+  }
+  50% {
+    width: 240rpx;
+    height: 120rpx;
+    transform: rotate(0deg);
+  }
+  100% {
+    width: 0;
+    height: 0;
+    transform: rotate(-90deg);
+  }
+}

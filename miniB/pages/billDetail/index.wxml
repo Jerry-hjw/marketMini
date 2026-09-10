@@ -1,0 +1,74 @@
+<!--pages/billDetail/index.wxml-->
+<wxs module="formatUtil" src="../../utils/formatUtil.wxs"></wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view class="data-box" style="font-size: 28rpx; line-height: 45rpx;">
+      <view>
+          <text>账单编号:</text>
+          <text style="float: right;">{{ billDetail.bill_code }}</text>
+      </view>
+      <view class="clear-fix"></view>
+      <view>
+          <text>账单金额:</text>
+          <text class="money" style="float: right; color: #666;">{{ billDetail.bill_amount }}</text>
+      </view>
+      <view class="clear-fix"></view>
+      <view>
+          <text>已缴金额:</text>
+          <text class="money" style="float: right; color: #666;">{{ billDetail.paid_amount }}</text>
+      </view>
+      <view class="clear-fix"></view>
+      <view>
+          <text>未缴金额:</text>
+          <text class="money" style="float: right;">{{ billDetail.unpaid }}</text>
+      </view>
+      <view class="clear-fix"></view>
+      <!-- <view>
+          <text>账单减免金额</text>
+          <text class="money" style="float: right;">{{ billDetail.free_amount }}</text>
+      </view> -->
+      <view class="clear-fix"></view>
+      <view>
+          <text>账单缴费截止日期:</text>
+          <text style="float: right;">{{ billDetail.bill_date }}</text>
+      </view>
+      <view class="clear-fix"></view>
+      <view>
+          <text>账单状态:</text>
+          <text style="float: right;">{{ billDetail.bill_status === 'submitted' ? '已缴费' : '未缴费' }}</text>
+      </view>
+      <view wx:if="{{ billDetail.bill_status === 'submitted' }}">
+          <text>账单付款时间:</text>
+          <text style="float: right;">{{  billDetail.bill_payment_date }}</text>
+      </view>
+      <view class="clear-fix"></view>
+    </view>
+    <view style="font-weight: bold; margin-top: 15rpx;">账单费用明细</view>
+    <view style="width: 100%; margin-top: 15rpx; font-size: 28rpx; line-height: 45rpx;">
+      <view wx:for="{{ contractCostDetail }}" wx:key="unique" wx:for-item="item" style="width: 99.5%; border-radius: 15rpx; margin-bottom: 20rpx; background: #fff; padding: 20rpx 25rpx; box-sizing: border-box; display: flex; align-items: center; box-shadow: 1rpx 3rpx 5rpx #cecccc; color: #666;">
+        <view style="flex: 6;">
+          <view style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ item.realty_full_name }}</view>
+          <view style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ item.cost_name }}</view>
+          <view>{{ item.start_date + ' ~ ' + item.end_date }}</view>
+        </view>
+        <view class="money" style="flex: 3; display: flex; align-items: center; justify-content: flex-end;"><text>{{ item.contract_amount }}</text></view>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="fixed" style="bottom: 30rpx; width: 90%; padding: 25rpx; background: linear-gradient(to bottom, #baf340, #8ec31f); color: #fff; text-align: center; border-radius: 50rpx; font-size: 30rpx;" data-index="{{ index }}" catch:tap="openToast">付 款</view> -->
+</view>
+
+<view wx:if="{{ visible }}" class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container">
+    <view style="width: 100%; padding: 40rpx; box-sizing: border-box; background: #fff; border-radius: 30rpx; margin-top: -10rpx;">
+      <view class="bold-font" style="text-align: center; margin-bottom: 30rpx; letter-spacing: 3rpx;">请输入要付款的金额</view>
+      <input class="input-view" type="digit" value="{{ amount }}" placeholder="付款金额" bindinput="setValue" />
+      <view class="flex-box-space" style="text-align: center; font-size: 30rpx; letter-spacing: 8rpx; margin-top: 40rpx;">
+        <view style="width: 47%; padding: 15rpx 35rpx; box-sizing: border-box; border: 1rpx solid #999; color: #999; border-radius: 50rpx;" bind:tap="closePopup">取消支付</view>
+        <view style="width: 47%; padding: 15rpx 35rpx; box-sizing: border-box; background: linear-gradient(to bottom, #baf340, #8ec31f); color: #fff; border-radius: 50rpx;" bind:tap="pay">确定支付</view>
+      </view>
+    </view>
+  </view>
+</view>

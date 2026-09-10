@@ -1,0 +1,17 @@
+/* pages/doc/index.wxss */
+.label {
+  font-size: 26rpx;
+  color: #666;
+  max-width: calc(100% - 120rpx);
+  line-height: 50rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.btn {
+  font-size: 26rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid #333;
+  color: #333;
+}

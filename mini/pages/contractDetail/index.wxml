@@ -1,0 +1,115 @@
+<!--pages/contractDetail/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view class="data-box" style="padding: 30rpx 40rpx;">
+      <view class="bold-font" style="color: #8ce31f; letter-spacing: 8rpx; text-align: center; margin-bottom: 30rpx; font-size: 35rpx;">合同明细</view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">合同名称</text>
+        <text class="text">{{ contract.contract_name }}</text>
+      </view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">合同编号</text>
+        <text class="text">{{ contract.contract_number }}</text>
+      </view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">签约日期</text>
+        <text class="text">{{ contract.signing_date }}</text>
+      </view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">起止日期</text>
+        <text class="text">{{ (contract.start_date || '') + ' ~ ' + (contract.end_date || '') }}</text>
+      </view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">客户名称</text>
+        <text class="text">{{ contract.prCustomerBean.customer_name }}</text>
+      </view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">联系电话</text>
+        <text class="text">{{ contract.prCustomerBean.contacts_phone }}</text>
+      </view>
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea; align-items: flex-start; font-size: 28rpx;">
+        <text class="bold-font" style="font-size: 28rpx;">所选单元</text>
+        <view wx:if="{{ contract.prContractRelUnitBeanList.length === 0 }}">
+          <view wx:for="{{ contract.prContractRelUnitTypeBeanList }}" wx:key="unique" wx:for-item="unit" class="text">
+            <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位类别:</text>
+              <text>{{ unit.unit_type_name }}</text>
+            </view>
+            <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位数量:</text>
+              <text>{{ unit.quantity }}</text>
+            </view>
+            <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位价格:</text>
+              <text>{{ unit.reference_price }}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:else>
+          <view wx:for="{{ contract.prContractRelUnitBeanList }}" wx:key="unique" wx:for-item="unit" class="text" style="margin-bottom: 20rpx;">
+            <!-- <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位类别:</text>
+              <text>{{ unit.unit_type_name }}</text>
+            </view> -->
+            <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位编号:</text>
+              <text>{{ unit.serial_number }}</text>
+            </view>
+            <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位面积:</text>
+              <text>{{ unit.prUnitBean.building_area }}</text>
+            </view>
+            <!-- <view class="flex-box-space" style="width: 300rpx;">
+              <text class="label">摊位价格:</text>
+              <text>{{ unit.reference_price }}</text>
+            </view> -->
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{ contract.prContractRelUnitBeanList.length > 0 }}" class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea; font-size: 28rpx;">
+        <text class="bold-font" style="font-size: 28rpx;">费项明细</text>
+        <view wx:for="{{ contract.prContractRelUnitBeanList }}" wx:key="unique" wx:for-item="unit" class="text">
+          <view wx:for="{{ unit.prContractRelUnitRelCostBeanList }}" wx:key="unique" wx:for-item="cost" style="width: 400rpx; margin-bottom: 20rpx;">
+            <view class="flex-box-space">
+              <text class="label">费项名称:</text>
+              <text>{{ cost.prCostBean.cost_name }}</text>
+            </view>
+            <!-- <view class="flex-box-space">
+              <text class="label">缴费周期:</text>
+              <text>{{ payment_cycle[cost.prCostBean.payment_cycle] }}</text>
+            </view> -->
+            <view class="flex-box-space">
+              <text class="label">开始日期:</text>
+              <text>{{ cost.start_date || '' }}</text>
+            </view>
+            <view class="flex-box-space">
+              <text class="label">结束日期:</text>
+              <text>{{ cost.end_date || '' }}</text>
+            </view>
+            <view class="flex-box-space">
+              <text class="label">费项价格:</text>
+              <text>{{ cost.contract_price }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{ contract.brand_name }}" class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">经营品牌</text>
+        <text class="text">{{ contract.brand_name }}</text>
+      </view>
+      <!-- <view wx:if="{{ contract.lease_purpose }}" class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">摊位用途</text>
+        <text class="text">{{ contract.lease_purpose }}</text>
+      </view> -->
+      <view class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea;">
+        <text class="bold-font" style="font-size: 28rpx;">合同状态</text>
+        <text class="text">{{ contractStatus[contract.contract_status] }}</text>
+      </view>
+      <view wx:if="{{ contract.fasc_doc_download_url }}" class="flex-box-space" style="padding: 30rpx 0; border-bottom: 1rpx solid #eaeaea; align-items: flex-start;">
+        <text class="bold-font" style="font-size: 28rpx;">下载地址</text>
+        <text user-select class="text" style="max-width: calc(100% - 150rpx); word-break: break-all;" data-url="{{ IMG_BASE_URL + contract.fasc_doc_download_url }}" bind:tap="openFile">{{ IMG_BASE_URL + contract.fasc_doc_download_url }}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+/* pages/contractApprove/index.wxss */
+.approve-btn {
+  line-height: normal;
+  padding: 2rpx 10rpx;
+  border: 1rpx solid #8ec31f;
+  border-radius: 3rpx;
+  margin-left: 20rpx;
+}

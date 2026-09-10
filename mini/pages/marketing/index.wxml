@@ -1,0 +1,37 @@
+<!--pages/market/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 130rpx;">
+    <view style="position: relative; margin-bottom: 25rpx;">
+      <image src="/img/search.png" style="position: absolute; left: 15rpx; top: 15rpx; width: 45rpx; height: 45rpx;" />
+      <input type="text" style="width: 100%; height: 70rpx; padding: 10rpx 75rpx; box-sizing: border-box; box-shadow: 0 0 8rpx rgb(194, 193, 193); background-color: rgba(255, 255, 255, 0.2); border-radius: 40rpx;" />
+    </view>
+    <view class="flex-box-space">
+      <image src="/img/scan.png" style="flex: 1;" mode="widthFix" bindtap="scanCode"></image>
+      <image src="/img/code.png" style="flex: 1; margin: 0 15rpx;" mode="widthFix" bindtap="showPopup"></image>
+      <image src="/img/verify.png" style="flex: 1;" mode="widthFix" data-url="/pages/verifyHistory/index" bindtap="toPage"></image>
+    </view>
+    <view class="function-container">
+      <view class="bold-font">商家服务</view>
+      <view class="flex-box-start" style="flex-wrap: wrap;">
+        <view wx:for="{{ functionList1 }}" wx:key="unique" class="flex-box-vertical" style="width: 25%; margin-top: 40rpx;" data-url="{{ item.url }}" bind:tap="toPage">
+          <image src="{{ item.img }}" style="height: 50rpx; margin-bottom: 10rpx;" mode="heightFix"></image>
+          <text class="label-font">{{ item.name }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{ toastVisible }}" bind:close="closePopup" class="toast">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container" style="background-color: #fff;">
+    <form bindsubmit="codeVerify">
+      <input type="number" value="{{ code }}" name="code" maxlength="12" style="width: 100%; margin-bottom: 20rpx; background: rgb(240, 240, 240); height: 180rpx; border-radius: 8rpx; font-size: 50rpx; text-align: center;" placeholder="请输入券码" />
+      <view class="flex-box" style="margin-top: 20rpx;">
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #8ce31f; border-radius: 15rpx; color: #fff; text-align: center; font-size: 30rpx;" form-type="submit">确 认</button>
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #888888; color: #fff; border-radius: 15rpx; text-align: center; font-size: 30rpx;" form-type="reset">重 置</button>
+      </view>
+    </form>
+  </view>
+</view>
+<menu menuIndex="{{ 2 }}"></menu>

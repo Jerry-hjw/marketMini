@@ -1,0 +1,43 @@
+<!--pages/customerContacts/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <scroll-view style="max-height: 90vh;" scroll-y bindscrolltolower="getDataList">
+      <view wx:for="{{ dataList }}" wx:key="unique" data-id="{{ item.pr_customer_contacts_id }}" class="data-box" style="margin-bottom: 20rpx;" data-id="{{ item.pr_customer_contacts_id }}" bindtap="openDialog">
+        <view class="flex-box-space">
+          <text class="label">人员姓名: </text>
+          <text>{{ item.contacts_name }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text class="label">电话号码: </text>
+          <text class="value">{{ item.contacts_phone }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text class="label">人员类型: </text>
+          <text class="value">{{ item.contacts_type ? contactsType[item.contacts_type] : '' }}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="fixed" style="width: 94%; height: 80rpx; line-height: 80rpx; border-radius: 8rpx; background: #8ec31f; color: #fff; text-align: center; margin: 25rpx 0;" bindtap="openDialog">+新增人员</view>
+  </view>
+</view>
+
+<view wx:if="{{ visible }}" class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container" style="background-color: #fff;">
+    <view class="bold-font" style="text-align: center;">人 员 详 情</view>
+    <view class="flex-box-space" style="margin: 30rpx auto;">
+      <view style="width: 100rpx; font-size: 28rpx;">姓名:</view>
+      <input type="text" value="{{ customerContacts.contacts_name }}" maxlength="100" class="input-view" placeholder="请输入姓名" placeholder-style="font-size: 26rpx;" data-prop="contacts_name" bindinput="setValue" />
+    </view>
+    <view class="flex-box-space" style="margin: 30rpx auto;">
+      <view style="width: 100rpx; font-size: 28rpx;">电话:</view>
+      <input type="number" value="{{ customerContacts.contacts_phone }}" maxlength="20" class="input-view" placeholder="请输入电话号码" placeholder-style="font-size: 26rpx;" data-prop="contacts_phone" bindinput="setValue" />
+    </view>
+    <view class="flex-box-space">
+      <button class="popupBtn" style="flex: 1; margin-right: 20rpx; background-color: #8ec31f;" bindtap="save">保 存</button>
+      <button wx:if="{{ customerContacts.pr_customer_contacts_id }}" class="popupBtn" style="flex: 1; margin-right: 20rpx; background-color: #8ec31f;" bindtap="delete">删 除</button>
+      <button class="popupBtn" style="flex: 1; background-color: #999;" bindtap="closeDialog">关 闭</button>
+    </view>
+  </view>
+</view>

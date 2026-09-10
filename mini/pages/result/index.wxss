@@ -1,0 +1,23 @@
+/* pages/result/index.wxss */
+.verify {
+    padding: 90rpx 40rpx;
+    box-sizing: border-box;
+    margin-top: 50rpx;
+    position: relative;
+    color: #f82525;
+}
+.verify-label {
+    min-width: 120rpx;
+    text-align-last: justify;
+    margin-right: 30rpx;
+    color: #666;
+    font-size: 26rpx;
+}
+.verify-value {
+    max-width: calc(100% - 150rpx);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #aaa;
+    font-size: 26rpx;
+}

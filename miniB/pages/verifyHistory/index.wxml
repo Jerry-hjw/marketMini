@@ -1,0 +1,35 @@
+<!--pages/verifyHistory/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <scroll-view style="max-height: 95vh;" scroll-y bindscrolltolower="getVerifyHistory">
+      <view wx:for="{{ verifyHistory }}" wx:key="index" wx:for-item="item" class="verify" style="line-height: 40rpx; box-shadow: 0 0 8rpx #d3d3d3;">
+        <view class="flex-box-start">
+            <text class="verify-label">核销券码</text>
+            <text class="verify-value">{{ item.coupon_detail_no }}</text>
+        </view>
+        <view class="flex-box-start">
+            <text class="verify-label">核销内容</text>
+            <text class="verify-value">{{ item.coupon_name }}</text>
+        </view>
+        <view class="flex-box-start">
+            <text class="verify-label">券类型</text>
+            <text class="verify-value">{{ couponType[item.coupon_type] }}</text>
+        </view>
+        <!-- <view class="flex-box-start">
+            <text class="verify-label">核销金额</text>
+            <text class="verify-value">{{ item.price }}</text>
+        </view> -->
+        <view class="flex-box-start">
+            <text class="verify-label">核销时间</text>
+            <text class="verify-value">{{ item.consume_date }}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <view wx:if="{{ verifyHistory.length === 0 }}" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #aaa;" class="flex-box">
+      <image src="/img/ic_no_data.png" style="width: 80rpx; margin-right: 15rpx;" mode="widthFix"></image>
+      暂无数据
+  </view>
+</view>
+

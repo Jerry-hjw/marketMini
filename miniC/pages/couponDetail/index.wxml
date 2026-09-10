@@ -1,0 +1,66 @@
+<!--pages/couponDetail/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="优惠券详情"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view style="width: 100%; position: relative; height: 400rpx;">
+      <!-- 轮播图 -->
+      <swiper indicator-dots="{{ bannerList.length > 1 }}" indicator-active-color="#9ae533" indicator-color="#aaa" autoplay vertical="{{ false }}" style="height: 400rpx; border-radius: 40rpx;" bindchange="setCurrent">
+        <block wx:for="{{ bannerList }}" wx:key="index">
+          <swiper-item>
+            <image src="{{ item }}" style="width: 100%; height: 100%; border-radius: 50rpx;" data-url="{{ item }}" bindtap="previewImage"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="content">
+      <view class="flex-box-space" style="padding: 20rpx 30rpx; background-color: #9ae533; color: #fff; border-radius: 5rpx 80rpx 0 0;">
+        <view>
+          <text wx:if="{{ coupon.coupon_amount }}" class="bold-font" style="color: #ff1725; font-size: 40rpx; margin-right: 10rpx;">{{ coupon.coupon_amount }}</text>
+          <text wx:if="{{ coupon.coupon_type && coupon.coupon_amount }}">{{ amountName[coupon.coupon_type] }}</text>
+        </view>
+        <view style="font-size: 26rpx;">倒计时: <text wx:if="{{ coupon.day }}">{{ coupon.day }}天</text><text wx:if="{{ coupon.hour }}"> {{ coupon.hour }}时</text><text> {{ coupon.minute }}分</text><text> {{ coupon.second }}秒</text></view>
+      </view>
+      <view class="bold-font" style="margin: 15rpx 0;">{{ coupon.coupon_name }}</view>
+      <view class="float-text">剩余: {{ coupon.coupon_quantity || '充足' }}</view>
+      <view wx:if="{{ coupon.coupon_limit_amount }}" class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/refresh.png" class="icon" />
+        <text class="title">最低限制使用金额</text>
+      </view>
+      <view wx:if="{{ coupon.coupon_limit_amount }}" class="float-text">{{ coupon.coupon_limit_amount }}元</view>
+      <view class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/date.png" class="icon" />
+        <text class="title">有效期</text>
+      </view>
+      <view class="float-text">{{ (coupon.get_valid_date || '') + ' 至 ' + (coupon.use_end_date || '') }}</view>
+      <view class="flex-box-start" style="margin: 15rpx 0;">
+        <image src="/img/time_2.png" class="icon" />
+        <text class="title">使用时间</text>
+      </view>
+      <view class="float-text">{{ (coupon.use_start_date || '') + ' 至 ' + (coupon.use_end_date || '') }}</view>
+      <view class="flex-box-space">
+        <view class="flex-box-start" style="width: 300rpx;">
+          <image src="/img/description.png" class="icon" />
+          <text class="title" style="margin: 15rpx 0;">使用规则:</text>
+        </view>
+        <view wx:if="{{ !infoVisible }}" class="float-text" bindtap="changeProductInfoVisible">——点击展开使用规则——</view>
+        <view wx:else class="float-text" bindtap="changeProductInfoVisible">——点击折叠使用规则——</view>
+      </view>
+      <view wx:if="{{ infoVisible }}">
+        <rich-text nodes="{{ coupon.coupon_info || '暂无规则' }}" style="font-size: 22rpx; color: #999;"></rich-text>
+      </view>
+    </view>
+  </view>
+  <view class="fixed flex-box-end" style="background: #fff; padding: 20rpx 30rpx; box-sizing: border-box;">
+    <!-- <view class="flex-box-start">
+      <text class="bold-font" style="color: #ff1725; font-size: 40rpx;">{{ totalPrice }}</text>
+      <view class="flex-box-start" style="margin-left: 30rpx; width: 180rpx;">
+        <view class="reduce-button {{ quantity <= 1 ? 'disable-button' : '' }}" bindtap="reduceNum">-</view>
+        <view class="quantity-num">{{ quantity }}</view>
+        <view class="plus-button" bindtap="plusNum">+</view>
+      </view>
+    </view> -->
+    <view wx:if="{{ coupon.applied === 'Y' }}" style="width: 400rpx; padding: 15rpx 40rpx; box-sizing: border-box; border-radius: 50rpx; background: linear-gradient(to bottom, #e6e6e6, #c4c3c3); text-align: center;" class="bold-font">已 领 取</view>
+    <view wx:else style="width: 400rpx; padding: 15rpx 40rpx; box-sizing: border-box; border-radius: 50rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); text-align: center;" class="bold-font" bind:tap="submitOrder">立 即 领 取</view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "menu": "/components/menu/index"
+  },
+  "navigationBarTitleText": "租值管理"
+}

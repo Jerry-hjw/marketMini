@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/user/index",
+    "pages/checkIn/index",
+    "pages/integralPhoto/index",
+    "pages/userDetail/index",
+    "pages/integralPhotoDetail/index",
+    "pages/memberBenefits/index",
+    "pages/brandGuide/index",
+    "pages/complaint/index",
+    "pages/complaintDetail/index",
+    "pages/brandDetail/index",
+    "pages/brandRecommand/index",
+    "pages/authMobile/index",
+    "pages/redirectOut/index",
+    "pages/swiperDetail/index",
+    "pages/product/index",
+    "pages/productDetail/index",
+    "pages/order/index",
+    "pages/orderDetail/index",
+    "pages/couponDetail/index",
+    "pages/userCoupon/index",
+    "pages/mallPartyDetail/index",
+    "pages/mallParty/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom",
+    "initialRenderingCache": "static"
+  },
+  "embeddedAppIdList": ["wx9424ec84be0669d2"],
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

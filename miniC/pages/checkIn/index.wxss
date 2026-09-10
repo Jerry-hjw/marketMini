@@ -1,0 +1,52 @@
+/* pages/checkIn/index.wxss */
+
+.popupBtn{
+  width: 100%;
+  background: #c59e6f;
+  border-top: 2rpx solid #ffe1bc;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 32rpx;
+  padding: 20rpx 0;
+  color: #fff;
+}
+.switch {
+  width: 40rpx;
+  height: 25rpx;
+  background: #71b316;
+  border-radius: 25rpx;
+  margin-right: 10rpx;
+	position: relative;
+}
+.switch::before {
+	display: block;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+  bottom: 0;
+	border-radius: 9999rpx;
+	background: #eaeaea;
+	transition: all 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+}
+
+.switch_checked::before {
+	transform: scale(0);
+}
+.switch view {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 25rpx;
+	height: 25rpx;
+	border-radius: 50%;
+	background: #71b316;
+	box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.4);
+	transition: all 0.35s cubic-bezier(0.45, 1, 0.4, 1);
+}
+
+.switch_checked view {
+	left: 100%;
+	transform: translateX(-100%);
+}

@@ -1,0 +1,60 @@
+<!--pages/bill/bill.wxml-->
+<wxs module="formatUtil" src="../../utils/formatUtil.wxs"></wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 0rpx;">
+    <view class="header">
+      <view class="flex-box" style="flex: 1;">
+        <view class="{{ tabIndex === 1 ? 'header-item-active' : 'header-item' }}" bindtap="changeTabIndex" data-index="{{ 1 }}">未缴费</view>
+      </view>
+      <view class="flex-box" style="flex: 1;">
+        <view class="{{ tabIndex === 2 ? 'header-item-active' : 'header-item' }}" bindtap="changeTabIndex" data-index="{{ 2 }}">已缴费</view>
+      </view>
+    </view>
+    <!-- <view class="tab">
+        <view class="{{ tabIndex === 1 ? 'tab-title-active' : 'tab-title' }}" data-index="{{ 1 }}" bindtap="changeTabIndex" style="border-radius: 15rpx 0 0 15rpx;">未缴费</view>
+        <view class="{{ tabIndex === 2 ? 'tab-title-active' : 'tab-title' }}" data-index="{{ 2 }}" bindtap="changeTabIndex" style="border-radius: 0 15rpx 15rpx 0;">已缴费</view>
+    </view> -->
+    <scroll-view class="bill-list" scroll-y bindscrolltolower="getDataList">
+      <view wx:for="{{ dataList }}" wx:key="index" class="data-box" style="width: 99%; margin: 10rpx auto; margin-bottom: 20rpx; border: {{ nowDate > item.bill_date && item.bill_status === 'unsubmit' ? '1rpx solid #ff1725' : 'none' }}; box-shadow: {{ nowDate > item.bill_date && item.bill_status === 'unsubmit' ? '0rpx 0rpx 8rpx #ff1725;' : '0rpx 0rpx 8rpx #afadad;' }};" data-pr_bill_id="{{ item.pr_bill_id }}" data-pr_contract_id="{{ item.pr_contract_id }}" bind:tap="toPage">
+        <view class="bold-font">{{ item.bill_code }}</view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text style="font-size: 26rpx; color: #999;">账单金额:</text>
+          <text class="bold-font">{{ item.bill_amount }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text style="font-size: 26rpx; color: #999;">已缴金额:</text>
+          <text class="bold-font">{{ item.paid_amount }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text style="font-size: 26rpx; color: #999;">未缴金额:</text>
+          <text class="bold-font" style="color: #ff1725;">{{ item.unpaid }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 15rpx;">
+          <text style="font-size: 26rpx; color: #999;">账单日期:</text>
+          <text style="font-size: 26rpx; color: #999;">{{ item.bill_date }}</text>
+        </view>
+        <!-- <view wx:if="{{ item.bill_status === 'unsubmit' }}" class="flex-box-end" style="margin-top: 15rpx;">
+          <view style="padding: 15rpx 45rpx; background: linear-gradient(to bottom, #baf340, #8ec31f); color: #fff; border-radius: 40rpx; font-size: 28rpx;" data-index="{{ index }}" catch:tap="openToast">付款</view>
+        </view> -->
+      </view>
+      <view wx:if="{{ !showMore && dataListTemp.length > 0 }}" class="flex-box" style="justify-content: flex-end; margin-top: 15rpx; font-size: 26rpx; font-weight: bold;" bind:tap="showMore">
+        <text>查看更多</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<view wx:if="{{ visible }}" class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container">
+    <view style="width: 100%; padding: 40rpx; box-sizing: border-box; background: #fff; border-radius: 30rpx; margin-top: -10rpx;">
+      <view class="bold-font" style="text-align: center; margin-bottom: 30rpx; letter-spacing: 3rpx;">请输入要付款的金额</view>
+      <input class="input-view" type="digit" value="{{ amount }}" placeholder="付款金额" bindinput="setValue" />
+      <view class="flex-box-space" style="text-align: center; font-size: 30rpx; letter-spacing: 8rpx; margin-top: 40rpx;">
+        <view style="width: 47%; padding: 15rpx 35rpx; box-sizing: border-box; border: 1rpx solid #999; color: #999; border-radius: 50rpx;" bind:tap="closePopup">取消支付</view>
+        <view style="width: 47%; padding: 15rpx 35rpx; box-sizing: border-box; background: linear-gradient(to bottom, #baf340, #8ec31f); color: #fff; border-radius: 50rpx;" bind:tap="pay">确定支付</view>
+      </view>
+    </view>
+  </view>
+</view>

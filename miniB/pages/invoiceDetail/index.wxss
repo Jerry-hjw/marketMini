@@ -1,0 +1,16 @@
+/* pages/invoiceDetail/index.wxss */
+.flex-box-space {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80rpx;
+  font-size: 26rpx;
+}
+.flex-box-space input {
+  text-align: right;
+  width: 440rpx;
+}
+.text {
+  max-width: 450rpx;
+  text-align: right;
+}

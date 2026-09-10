@@ -1,0 +1,59 @@
+<!--pages/checkIn/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="签到"></navbar>
+  <image src="/img/bgImg.png" class="bg-img" />
+  <view class="container" style="padding: 10rpx;">
+    <view class="flex-box-vertical" style="position: relative; width: 300rpx; height: 300rpx; margin: 40rpx auto; color: #fff; text-shadow: 0 0 1rpx #000; font-weight: bold;">
+      <image src="/img/signButton.png" style="position: absolute; top: 0; left: 0; z-index: -2; width: 300rpx; height: 300rpx;" />
+      <view style="font-size: 20rpx; letter-spacing: 3rpx;">- 已签到 -</view>
+      <view><text style="font-size: 80rpx; margin-right: 6rpx;">{{ signArray.length }}</text>天</view>
+    </view>
+    <view class="flex-box" style="padding: 25rpx 0; border-radius: 50rpx; background-color: #fff; box-shadow: 0 0 8rpx #afadad; font-size: 30rpx;">
+      <view style="flex: 1; color: #71b316;" class="flex-box">
+        <view class="switch {{ signTipsChecked ? 'switch_checked' : '' }}">
+          <view></view>
+        </view>
+        <text>签到提醒</text>
+      </view>
+      <view style="width: 0rpx; height: 40rpx; border-left: 1rpx solid #71b316;"></view>
+      <view style="flex: 1; color: #71b316;" class="flex-box" bind:tap="showToast">
+        <image src="/img/question.png" style="width: 30rpx; height: 30rpx; margin-right: 10rpx;" />
+        <text>签到规则</text>
+      </view>
+    </view>
+  </view>
+  <view class="flex-box-vertical" style="position: absolute; bottom: 0; left: 30rpx; width: calc(100% - 60rpx); max-height: calc(100vh - 380rpx - 200rpx - 100rpx); overflow: auto; padding: 30rpx 0; box-sizing: border-box; border-radius: 35rpx 35rpx 0 0; background-color: #fff; box-shadow: 0 0 8rpx #afadad; justify-content: space-between;">
+    <view class="flex-box">
+      <text style="font-size: 40rpx; margin: 20rpx 0 50rpx;">{{ yearmonth }}</text>
+    </view>
+    <view class="flex-box-end">
+      <view wx:for="{{ dayArray }}" wx:key="unique" wx:for-item="day" style="flex: 1; text-align: center; color: #999; font-size: 26rpx;">{{ day }}</view>
+    </view>
+    <view class="flex-box-end" style="align-items: flex-end; padding: 30rpx 0;">
+      <view wx:for="{{ dateArray }}" wx:key="index" wx:for-item="list" class="flex-box-vertical" style="width: calc(100% / 7); margin-bottom: {{ index > maxLengthLastIndex ? '110rpx' : 0 }};">
+        <view wx:for="{{ list }}" wx:key="unique" wx:for-item="date" class="flex-box-vertical" style="height: 70rpx; padding: 20rpx 0; justify-content: flex-start; text-align: center;">
+          <view style="color: {{ date.isToday ? '#fff' : '#666' }}; font-size: 26rpx; background-color: {{ date.isToday ? '#71b316' : '' }}; border-radius: 50%; width: 50rpx; height: 50rpx; line-height: 50rpx;">{{ date.day }}</view>
+          <view wx:if="{{ date.isSign }}" style="width: 100%; font-size: 18rpx; color: #71b316; white-space: nowrap; letter-spacing: 3rpx;">已签到</view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{ !todaySign }}" style="width: 60%; margin: 10rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); text-align: center; padding: 25rpx 0; border-radius: 50rpx;" class="bold-font" bind:tap="sign">立 即 签 到</view>
+    <view wx:else style="width: 60%; margin: 10rpx; background: linear-gradient(to bottom, #e9f7d5, #c5e992); text-align: center; padding: 25rpx 0; border-radius: 50rpx;" class="bold-font">已 签 到</view>
+  </view>
+</view>
+
+<view wx:if="{{ visible }}" class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container" style="padding: 200rpx 80rpx; text-shadow: 0 0 1rpx #000;">
+    <image src="/img/signToast.png" style="position: absolute; z-index: -1; top: 25%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%;"  />
+    <view wx:if="{{ signIntegral }}" style="color: #fff; text-align: center;">
+      <view>恭喜您！签到成功</view>
+      <view>+{{ signIntegral }}积分</view>
+    </view>
+    <view wx:else style="color: #fff; text-align: center; letter-spacing: 3rpx;">
+      <view class="bold-font" style="color: #fff; margin-bottom: 30rpx;">签到规则</view>
+      <view style="font-size: 26rpx;">每日签到可获得5积分，连续签到满7天加15积分，连续签到满30天加30积分，生日当天积分双倍</view>
+    </view>
+  </view>
+  <image src="/img/ic_close.png" style="position: absolute; z-index: 1; bottom: 30%; left: 50%; transform: translate(-50%, -50%); width: 70rpx; height: 70rpx;" bind:tap="closePopup" />
+</view>

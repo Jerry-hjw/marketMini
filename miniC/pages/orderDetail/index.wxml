@@ -1,0 +1,43 @@
+<!--pages/orderDetail/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="订单详情"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view class="content" style="margin-bottom: 20rpx; padding: 20rpx 25rpx;">
+      <view class="flex-box-space" style="align-items: flex-start; line-height: 40rpx;">
+        <image src="{{ IMG_BASE_URL + order.prProductBean.product_pic_1 }}" style="width: 160rpx; height: 160rpx; margin-right: 20rpx;" mode="aspectFill"/>
+        <view style="width: calc(100% - 180rpx); font-size: 26rpx;">
+          <view class="bold-font" style="font-size: 30rpx;">{{ order.prProductBean.product_name }}</view>
+          <view wx:if="{{ order.prProductBean.product_type === 'integral' }}">{{ order.prProductBean.exchange_integral }} 积分</view>
+          <view wx:else>
+            ￥<text style="font-size: 30rpx;">{{ order.prProductBean.exchange_price }}</text>
+          </view>
+          <view class="label-font">x{{ order.quantity }}</view>
+          <view class="label-font">{{ order.prProductBean.use_start_date + ' ~ ' + order.prProductBean.use_end_date }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="content">
+      <view class="flex-box-space">
+        <text class="label">订单编号</text>
+        <text class="value">{{ order.order_code }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text class="label">订单名称</text>
+        <text class="value">{{ order.order_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text class="label">订单总额</text>
+        <text class="value">{{ (order.order_amount || order.order_integral) + (order.business_type === 'integral' ? '积分' : '元') }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text class="label">下单时间</text>
+        <text class="value">{{ order.order_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text class="label">订单状态</text>
+        <text class="value">{{ orderStatus[order.order_status] }}</text>
+      </view>
+    </view>
+  </view>
+</view>

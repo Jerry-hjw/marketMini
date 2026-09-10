@@ -1,0 +1,52 @@
+<!--pages/invoiceList/index.wxml-->
+<wxs module="formatUtil" src="../../utils/formatUtil.wxs"></wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 0rpx;">
+    <!-- <view class="header">
+      <view class="flex-box" style="flex: 1;">
+        <view class="{{ tabIndex === 1 ? 'header-item-active' : 'header-item' }}" bindtap="changeTabIndex" data-index="{{ 1 }}">未缴费</view>
+      </view>
+      <view class="flex-box" style="flex: 1;">
+        <view class="{{ tabIndex === 2 ? 'header-item-active' : 'header-item' }}" bindtap="changeTabIndex" data-index="{{ 2 }}">已缴费</view>
+      </view>
+    </view> -->
+    <!-- <view class="tab">
+        <view class="{{ tabIndex === 1 ? 'tab-title-active' : 'tab-title' }}" data-index="{{ 1 }}" bindtap="changeTabIndex" style="border-radius: 15rpx 0 0 15rpx;">未缴费</view>
+        <view class="{{ tabIndex === 2 ? 'tab-title-active' : 'tab-title' }}" data-index="{{ 2 }}" bindtap="changeTabIndex" style="border-radius: 0 15rpx 15rpx 0;">已缴费</view>
+    </view> -->
+    <scroll-view wx:if="{{ tabIndex === 1 }}" class="bill-list" scroll-y bindscrolltolower="getDataList">
+      <view wx:for="{{ dataList }}" wx:key="index" class="data-box" style="width: 99%; margin: 10rpx auto; margin-bottom: 20rpx; position: relative; border: {{ nowDate > item.bill_date && item.bill_status === 'unsubmit' ? '1rpx solid #ff1725' : 'none' }}; box-shadow: {{ nowDate > item.bill_date && item.bill_status === 'unsubmit' ? '0rpx 0rpx 8rpx #ff1725;' : '0rpx 0rpx 8rpx #afadad;' }};" data-pr_invoice_id="{{ item.pr_invoice_id }}" bind:tap="toPage">
+        <view style="width: calc(100% - 140rpx);">
+          <view class="flex-box-start">
+            <text class="content_tv pr">发票编号</text>
+            <text class="content_tv">{{ item.invoice_code }}</text>
+          </view>
+          <view class="flex-box-start">
+            <text class="content_tv pr">发票类型</text>
+            <text class="content_tv">{{ item.invoice_type ? invoiceType[item.invoice_type] : '' }}</text>
+          </view>
+          <view class="flex-box-start">
+            <text class="content_tv pr">发票种类</text>
+            <text class="content_tv">{{ item.invoiceLine ? invoiceLine[item.invoiceLine] : '' }}</text>
+          </view>
+          <view class="flex-box-start">
+            <text class="content_tv pr">开票时间</text>
+            <text class="content_tv">{{ item.invoice_date }}</text>
+          </view>
+        </view>
+        <view class="rt" style="width: 120rpx; height: calc(100% - 40rpx); margin-left: 15rpx;">
+          <view wx:if="{{ item.nuonuo_status === '0' }}" style="color: 888;">未开票</view>
+          <view wx:if="{{ item.nuonuo_status === '1' }}" style="color: rgb(255, 196, 0);">开票中</view>
+          <view wx:if="{{ item.nuonuo_status === '2' }}" style="color: rgb(112, 223, 1);">开票成功</view>
+          <view wx:if="{{ item.nuonuo_status === '3' }}" style="color: rgb(255, 123, 71);">开票失败</view>
+          <view class="content_tv bigt2 red" style="margin: 7rpx 15rpx auto;">￥<text style="font-size: 35rpx; font-weight: bold;">{{ item.invoice_amount }}</text></view>
+          <view wx:if="{{ item.nuonuo_status === '2' }}" style="padding: 0 10rpx; border: 2rpx solid #666; border-radius: 10rpx; font-size: 22rpx; margin-bottom: 7rpx; color: #666;" data-url="{{ item.nuonuo_invoiceFileUrl }}" catch:tap="download">下载发票</view>
+        </view>
+      </view>
+      <view wx:if="{{ !showMore && dataListTemp.length > 0 }}" class="flex-box" style="justify-content: flex-end; margin-top: 15rpx; font-size: 26rpx; font-weight: bold;" bind:tap="showMore">
+        <text>查看更多</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

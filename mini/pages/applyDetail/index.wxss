@@ -1,0 +1,30 @@
+/* pages/applyDetail/index.wxss */
+.flex-box-space {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 80rpx;
+}
+.label {
+  font-size: 26rpx;
+  color: #333;
+}
+.value {
+  font-size: 26rpx;
+  color: #999;
+}
+.textarea {
+  width: 100%;
+  font-size: 26rpx;
+  border: 1rpx solid #999;
+  color: #999;
+  border-radius: 10rpx;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+.img-item {
+  margin-bottom: 20rpx;
+}
+.img-item:last-child {
+  margin-bottom: 0;
+}

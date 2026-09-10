@@ -1,0 +1,32 @@
+<!--pages/complaint/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="投诉建议箱"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="max-height: calc(100vh - 200rpx - 150rpx); overflow: auto; margin-top: 25rpx;">
+    <image wx:if="{{ dataList.length === 0 }}" src="/img/integralPhoto.png" class="absolute" style="width: 80%;" mode="widthFix" />
+    <view wx:else>
+      <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="item" data-id="{{ item.pr_complaint_id }}" bind:tap="toDetail" class="flex-box-space" style="padding: 20rpx 30rpx; box-sizing: border-box; border-radius: 30rpx; background: #fff; margin-bottom: 25rpx;">
+        <view>
+          <view class="bold-font" style="letter-spacing: 3rpx; margin-bottom: 30rpx; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{ item.complaint_content }}</view>
+          <view class="flex-box-start" style="color: #666; font-size: 24rpx;">
+            <view style="width: 18rpx; height: 18rpx; border-radius: 50%; background: #999;"></view>
+            <text style="margin: 0 25rpx 0 10rpx;">提交</text>
+            <text>{{ item.complaint_date }}</text>
+          </view>
+          <view wx:if="{{ item.handle_status === 'Y' || item.handle_status === 'N' }}" class="flex-box-start" style="color: {{ item.handle_status === 'Y' ? '#9ae533' : '#dd4949' }}; font-size: 24rpx; margin-top: 10rpx;">
+            <view style="width: 16rpx; height: 16rpx; border-radius: 50%; border: {{ item.handle_status === 'Y' ? '1rpx solid #9ae533;' : '1rpx solid #dd4949;' }} "></view>
+            <text style="margin: 0 25rpx 0 10rpx;">{{ item.handle_status === 'Y' ? '已处理' : '待处理' }}</text>
+            <text>{{ item.handle_date }}</text>
+          </view>
+        </view>
+        <image src="{{ item.photo1_url }}" style="width: 140rpx; height: 140rpx; border-radius: 15rpx;" mode="aspectFill" />
+      </view>
+    </view>
+  </view>
+  <view class="fixed" style="width: 96%; padding-bottom: 30rpx;">
+    <view class="flex-box" style="padding: 25rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); border-radius: 50rpx; box-sizing: border-box;" bind:tap="toDetail">
+      <image src="/img/camera.png" style="width: 30rpx; height: 30rpx; margin-right: 15rpx;" />
+      <text class="bold-font">新 增 投 诉 建 议</text>
+    </view>
+  </view>
+</view>

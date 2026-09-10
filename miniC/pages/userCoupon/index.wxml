@@ -1,0 +1,52 @@
+<!--pages/userCoupon/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="个人优惠券"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <view class="flex-box-space" style="padding: 25rpx 0; box-sizing: border-box; background-color: #fff; box-shadow: 0 0 8rpx #d3d3d3;">
+      <view style="flex: 1; text-align: center; color: {{ tabIndex === 1 ? '#9ae533' : '#000' }}; font-weight: {{ tabIndex === 1 ? 'bold' : 'normal' }};" data-index="{{1}}" bind:tap="changeTab">待使用</view>
+      <view style="flex: 1; text-align: center; color: {{ tabIndex === 2 ? '#9ae533' : '#000' }}; font-weight: {{ tabIndex === 2 ? 'bold' : 'normal' }};" data-index="{{2}}" bind:tap="changeTab">已失效</view>
+    </view>
+    <scroll-view style="margin: 25rpx 0; width: 100%; max-height: 85vh;" scroll-y bindscrolltolower="getCoupon">
+      <view wx:for="{{ dataList }}" wx:key="unique" wx:for-item="coupon" class="{{ product_type === 'coupon' ? '' : 'flex-wrap-item' }}" style="margin-bottom: 25rpx;">
+        <view style="position: relative; margin: 15rpx 0; border-radius: 8rpx; background-color: #fff; box-shadow: 0 0 8rpx #afadad; height: 190rpx;" data-no="{{ coupon.coupon_detail_no }}" data-type="coupon" data-status="{{ coupon.useStatus }}" class="flex-box-space" bind:tap="showQrCode">
+          <image src="{{ coupon.coupon_cover_url ? IMG_BASE_URL + coupon.coupon_cover_url : '' }}" style="width: 190rpx; height: 100%; background-color: #fff;" mode="aspectFit"/>
+          <view style="width: calc(100% - 195rpx); height: 100%; padding: 20rpx; box-sizing: border-box; font-size: 23rpx; color: #999;" class="flex-box-space">
+            <view style="margin-right: 30rpx;">
+              <view class="bold-font nowrap" style="font-size: 28rpx; margin-bottom: 15rpx;">{{ coupon.coupon_name }}</view>
+              <view>
+                <text>{{ coupon.use_end_date }}到期</text>
+                <text data-index="{{ index }}" style="margin-left: 10rpx;" data-id="{{ coupon.pr_coupon_id }}" catch:tap="showInfo">规则 ></text>
+              </view>
+            </view>
+            <view class="flex-box-vertical" style="width: 150rpx;">
+              <view style="color: #ff1725; font-size: 26rpx;">
+                <text style="font-size: 40rpx; font-weight: bold;">{{ coupon.coupon_type === '04' ? 1 : coupon.coupon_amount }}</text>
+                <text>{{ amountName[coupon.coupon_type] }}</text>
+              </view>
+              <text wx:if="{{ coupon.coupon_type === '01' || coupon.coupon_type === '02' }}" style="font-size: 24rpx; color: #999; margin: 8rpx 0;">满{{ coupon.coupon_limit_amount }}可用</text>
+              <text wx:else style="font-size: 24rpx; color: #999;">{{ couponType[coupon.coupon_type] }}</text>
+            </view>
+          </view>
+          <image wx:if="{{ coupon.useStatus !== 'none' }}" src="{{ coupon.useStatus === 'used' ? '/img/couponUsed.png' : '/img/couponDisabled.png' }}" style="position: absolute; top: 0; right: 0; width: 190rpx; height: 190rpx;" />
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+<view wx:if="{{ infoVisible }}" class="toast" bind:tap="closePopup">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container flex-box-vertical" style="background-color: #fff;">
+    <view class="bold-font">使用规则</view>
+    <rich-text nodes="{{ coupon_info }}" style="margin-top: 20rpx; color: #666; font-size: 26rpx;"></rich-text>
+  </view>
+</view>
+<view wx:if="{{ codeVisible }}" class="toast" bind:tap="closePopup">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container flex-box-vertical" style="background-color: #fff;">
+    <view class="bold-font">请将此二维码展示给商家</view>
+    <image src="{{ verificationUrl }}" style="width: 400rpx; height: 400rpx; margin-top: 20rpx;" />
+    <view class="bold-font" style="letter-spacing: 5rpx; font-size: 45rpx;">{{ coupon_detail_no }}</view>
+  </view>
+  <image src="/img/ic_close.png" style="position: absolute; z-index: 1; bottom: 20%; left: 50%; transform: translate(-50%, -50%); width: 70rpx; height: 70rpx;" bind:tap="closePopup" />
+</view>

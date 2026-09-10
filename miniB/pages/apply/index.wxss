@@ -1,0 +1,9 @@
+/* pages/apply/index.wxss */
+.label {
+  font-size: 28rpx;
+  color: #000;
+}
+.value {
+  font-size: 28rpx;
+  color: #666;
+}

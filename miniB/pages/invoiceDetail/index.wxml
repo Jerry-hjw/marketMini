@@ -1,0 +1,100 @@
+<!--pages/invoiceDetail/index.wxml-->
+<view style="position: relative; padding-bottom: 120rpx;">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view style="width: 130rpx; padding: 5rpx 15rpx; text-align: center; border: 4rpx solid #8ce31f; border-radius: 10rpx; font-size: 28rpx; font-weight: bold;">发票信息</view>
+    <view style="padding: 30rpx 25rpx; background-color: #fff; box-shadow: 0 0 8rpx #999; border-radius: 10rpx; margin: 20rpx 0;">
+      <view class="flex-box-space">
+        <text>开票金额</text>
+        <text class="price-font">{{ invoice_amount }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text><text class="price-font">*</text>发票种类</text>
+        <radio-group wx:if="{{ !invoice.pr_invoice_id }}" data-prop="invoiceLine" bindchange="setValue" style="color: #888;">
+          <label>
+            <radio value="bs" checked="{{ invoice.invoiceLine === 'bs' }}" />数电专票(电子)
+          </label>
+          <label>
+            <radio value="pc" checked="{{ invoice.invoiceLine === 'pc' }}" />数电普票(电子)
+          </label>
+        </radio-group>
+        <text wx:else class="text">{{ invoiceLine[invoice.invoiceLine] }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text><text class="price-font">*</text>开票税号</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_tax_no }}" placeholder="请输入开票税号(纳税号)" maxlength="40" data-prop="invoice_tax_no" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_tax_no }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>开票银行</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_bank_name }}" placeholder="请输入开票银行" maxlength="200" data-prop="invoice_bank_name" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_bank_name }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>开票银行账号</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_bank_account }}" placeholder="请输入开票银行账号" maxlength="50" data-prop="invoice_bank_account" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_bank_account }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text><text class="price-font">*</text>开票公司名称</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_company_name }}" placeholder="请输入开票公司名称" maxlength="200" data-prop="invoice_company_name" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_company_name }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>开票公司地址</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_company_addr }}" placeholder="请输入开票公司地址" maxlength="200" data-prop="invoice_company_addr" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_company_addr }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>开票公司电话</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_company_tel }}" placeholder="请输入开票公司电话" maxlength="40" data-prop="invoice_company_tel" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_company_tel }}</view>
+      </view>
+      <view style="margin: 10rpx 0; font-size: 26rpx;">
+        <view>备注</view>
+        <textarea wx:if="{{ !invoice.pr_invoice_id }}" maxlength="200" value="{{ invoice.remark }}" placeholder="请输入备注" maxlength="500" style="width: 100%; padding: 10rpx; margin-top: 10rpx; box-sizing: border-box; border: 1rpx solid #666; border-radius: 10rpx;" data-prop="remark" bindinput="setValue" />
+        <view wx:else>{{ invoice.remark }}</view>
+      </view>
+    </view>
+    <view style="width: 130rpx; padding: 5rpx 15rpx; text-align: center; border: 4rpx solid #8ce31f; border-radius: 10rpx; font-size: 28rpx; font-weight: bold;">接收方式</view>
+    <view style="padding: 30rpx 25rpx; background-color: #fff; box-shadow: 0 0 8rpx #999; border-radius: 10rpx; margin: 20rpx 0;">
+      <view class="flex-box-space">
+        <text>发票接收者电话</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_notifier_mobile }}" placeholder="请输入发票接收者电话" maxlength="20" data-prop="invoice_notifier_mobile" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_notifier_mobile }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>发票接收者邮箱</text>
+        <input wx:if="{{ !invoice.pr_invoice_id }}" type="text" value="{{ invoice.invoice_notifier_email }}" placeholder="请输入发票接收者邮箱" maxlength="100" data-prop="invoice_notifier_email" bindinput="setValue" />
+        <view wx:else class="text">{{ invoice.invoice_notifier_email }}</view>
+      </view>
+    </view>
+    <view wx:if="{{ invoice.pr_invoice_id && invoice_amount > 0 }}" style="width: 130rpx; padding: 5rpx 15rpx; text-align: center; border: 4rpx solid #8ce31f; border-radius: 10rpx; font-size: 28rpx; font-weight: bold;">开票结果</view>
+    <view wx:if="{{ invoice.pr_invoice_id && invoice_amount > 0 }}" style="padding: 30rpx 25rpx; background-color: #fff; box-shadow: 0 0 8rpx #999; border-radius: 10rpx; margin: 20rpx 0;">
+      <view class="flex-box-space">
+        <text>发票编号</text>
+        <view class="text">{{ invoice.invoice_code }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>发票类型</text>
+        <view class="text">{{ invoice.invoice_type ? invoiceType[invoice.invoice_type] : '' }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>开票时间</text>
+        <view class="text">{{ invoice.invoice_date }}</view>
+      </view>
+      <view class="flex-box-space">
+        <text>开票状态</text>
+        <view class="text">{{ invoice.nuonuo_status ? nuonuoStatus[invoice.nuonuo_status] : '' }}</view>
+      </view>
+      <view wx:if="{{ invoice.nuonuo_status === '3' }}" class="flex-box-space">
+        <text>失败原因</text>
+        <view class="text">{{ invoice.nuonuo_statusMsg || '暂无' }}</view>
+      </view>
+    </view>
+    <view class="flex-box">
+      <view wx:if="{{ !invoice.pr_invoice_id && invoice_amount > 0 }}" class="pay-button" style="margin: 20rpx 0;" bindtap="saveInvoice">提 交 发 票 申 请</view>
+      <view wx:if="{{ invoice.pr_invoice_id && invoice.nuonuo_invoiceFileUrl }}" class="primary-button" style="width: 100%; height: 80rpx; line-height: 80rpx; margin: 20rpx 0;" data-url="{{ invoice.nuonuo_invoiceFileUrl }}" bindtap="download">下 载 发 票</view>
+    </view>
+  </view>
+</view>

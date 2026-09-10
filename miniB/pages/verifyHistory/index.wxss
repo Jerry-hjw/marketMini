@@ -1,0 +1,23 @@
+/* pages/verifyHistory/index.wxss */
+.verify {
+    padding: 10rpx 25rpx;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 10rpx;
+    box-shadow: 0 0 10rpx #e7e4e4;
+    margin-bottom: 20rpx;
+}
+.verify-label {
+    min-width: 120rpx;
+    text-align-last: justify;
+    margin-right: 30rpx;
+    font-size: 26rpx;
+}
+.verify-value {
+    max-width: calc(100% - 150rpx);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: #aaa;
+    font-size: 25rpx;
+}

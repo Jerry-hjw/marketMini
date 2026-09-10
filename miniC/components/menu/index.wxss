@@ -1,0 +1,215 @@
+/* components/menu/index.wxss */
+.menu {
+  position: fixed;
+  bottom: 20rpx;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 75%;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+.menu-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #999;
+}
+.menu-img {
+  width: 55rpx;
+  height: 55rpx;
+  margin-bottom: 5rpx;
+}
+.big-img {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  margin-bottom: 15rpx;
+  margin-top: -48rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.bigger-img {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  margin-bottom: 7rpx;
+  margin-top: -60rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+.active {
+  color: #8ec31f;
+}
+/* 扇形区 */
+.turn-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: -99;
+  width: 440rpx;
+  height: 220rpx;
+  border-radius: 220rpx 220rpx 0 0;
+  background-color: #fff;
+  box-shadow: 0 0 10rpx #dadada;
+  transform-origin: bottom center;
+  /* transform: rotate(0deg); */
+  transition: 1s;
+  font-size: 23rpx;
+  /* overflow: hidden; */
+}
+.prise-container-1 {
+  width: 100rpx;
+  height: 220rpx;
+  position: absolute;
+  left: 50%;
+  top: 25rpx;
+  transform: translate(-50%, 0);
+  transform-origin: 0% 100%;
+  transform: rotate(-60deg);
+  transition: 1s;
+  /* transform: rotate(0deg) skewY(-45deg); */
+  z-index: -1;
+}
+.prise-container-2 {
+  width: 100rpx;
+  height: 220rpx;
+  position: absolute;
+  left: 45%;
+  top: 25rpx;
+  transform: translate(-50%, 0);
+  transform-origin: 0% 100%;
+  transform: rotate(-30deg);
+  transition: 1s;
+  /* transform: rotate(0deg) skewY(-45deg); */
+  z-index: -1;
+}
+.prise-container-3 {
+  width: 100rpx;
+  height: 220rpx;
+  position: absolute;
+  left: 60%;
+  top: 25rpx;
+  transform: translate(-50%, 0);
+  transform-origin: 0% 100%;
+  transform: rotate(0deg);
+  transition: 1s;
+  /* transform: rotate(0deg) skewY(-45deg); */
+  z-index: -1;
+}
+.prise-container-4 {
+  width: 100rpx;
+  height: 220rpx;
+  position: absolute;
+  left: 50%;
+  top: 30rpx;
+  transform: translate(-50%, 0);
+  transform-origin: 0% 100%;
+  transform: rotate(30deg);
+  transition: 1s;
+  /* transform: rotate(0deg) skewY(-45deg); */
+  z-index: -1;
+}
+.prise-container-5 {
+  width: 100rpx;
+  height: 220rpx;
+  position: absolute;
+  left: 50%;
+  top: 10rpx;
+  transform: translate(-50%, 0);
+  transform-origin: 0% 100%;
+  transition: 1s;
+  /* transform: rotate(0deg) skewY(-45deg); */
+  z-index: 0;
+}
+
+.prise-child-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(60deg);
+}
+.line-1 {
+  width: 45rpx;
+  height: 1rpx;
+  text-align: right;
+  margin-left: 135rpx;
+  margin-top: -5rpx;
+  background-color: #eaeaea;
+  transform: rotate(25deg);
+}
+.prise-child-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(30deg);
+}
+.line-2 {
+  width: 35rpx;
+  height: 1rpx;
+  text-align: right;
+  margin-left: 45rpx;
+  margin-top: 17rpx;
+  background-color: #eaeaea;
+  transform: rotate(60deg);
+}
+.prise-child-3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(0deg);
+}
+.line-3 {
+  width: 35rpx;
+  height: 1rpx;
+  text-align: left;
+  margin-right: 45rpx;
+  margin-top: 17rpx;
+  background-color: #eaeaea;
+  transform: rotate(-60deg);
+}
+.prise-child-4 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-30deg);
+}
+.line-4 {
+  width: 45rpx;
+  height: 1rpx;
+  text-align: left;
+  margin-right: 135rpx;
+  margin-top: -5rpx;
+  background-color: #eaeaea;
+  transform: rotate(-25deg);
+}
+.prise-child-5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(0deg);
+}
+.line-5 {
+  width: 55rpx;
+  height: 1rpx;
+  text-align: left;
+  margin-right: 0rpx;
+  margin-top: 30rpx;
+  background-color: #eaeaea;
+  transform: rotate(-90deg);
+}
+
+.icon {
+  width: 30rpx;
+  height: 30rpx;
+}

@@ -1,0 +1,35 @@
+<!--pages/contractApproveProcess/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view class="flex-box-start">
+      <view>
+        <view wx:for="{{ list }}" wx:key="index" wx:for-item="l" class="flex-box-vertical" style="width: 40rpx; margin: 5rpx 0;">
+          <view class="flex-box-vertical" style="width: 30rpx; height: 190rpx; padding: 10rpx 5rpx; font-size: 24rpx; font-weight: bold; background-color: {{ l.taskExcuted === 'Y' ? '#b4f034' : 'rgba(190, 190, 190, 0.5)' }}; border-radius: 8rpx; text-align: center;">{{ l.taskName }}</view>
+          <view wx:if="{{ index < list.length - 1 }}" style="height: 30rpx; border-left: 8rpx dotted #8ec31f;"></view>
+        </view>
+      </view>
+      <view style="width: calc(100% - 50rpx);">
+        <view wx:for="{{ list }}" wx:key="unique" class="flex-box-vertical" style="position: relative; margin-left: 15rpx; width: 100%; height: 220rpx; padding: 20rpx 30rpx 20rpx 45rpx; box-sizing: border-box; margin-bottom: {{ index < list.length - 1 ? '24rpx' : '0rpx' }}; font-size: 26rpx; color: #777; justify-content: space-between;" bind:tap="toDetail">
+          <image src="/img/dialog.png" style="position: absolute; z-index: -1; top: 0; left: 0; width: 100%; height: 100%;" />
+          <view class="flex-box-space">
+            <view>
+              <text wx:if="{{ item.taskId }}" class="bold-font" style="font-size: 35rpx;">{{ item.approveUser }}</text>
+              <text> {{ item.approveTask }}</text>
+            </view>
+            <text>{{ item.approveDate }}</text>
+          </view>
+          <view class="flex-box-space">
+            <view wx:if="{{ item.taskId }}" style="width: calc(100% - 140rpx);">
+              <text>意见：</text>
+              <text>{{ item.approveContent || '无' }}</text>
+            </view>
+            <view wx:else style="color: #000; font-weight: bold;">{{ item.approveUser }}</view>
+            <text style="color: {{ item.taskExcuted === 'Y' ? (item.approveResult === 'Y' ? '#8ec31f' : 'red') : 'orange' }};">{{ item.taskExcuted === 'Y' ? (item.approveResult === 'Y' ? '审核通过' : '审核不通过') : '待审核' }}</text>
+          </view>
+        </view>
+      </view>
+      
+    </view>
+  </view>
+</view>

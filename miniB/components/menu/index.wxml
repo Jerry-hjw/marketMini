@@ -1,0 +1,10 @@
+<!--components/menu/index.wxml-->
+<view class="menu">
+  <view style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; box-shadow: 0 -2rpx 8rpx #aaa; background: #fff;">
+    <!-- <image src="{{ '/img/menu_item_' + menuIndex + '.png' }}" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: -999;"></image> -->
+    <view wx:for="{{ menuList }}" wx:key="index" wx:for-item="menu" class="menu-item {{ menu.index === menuIndex ? 'active' : '' }}" data-index="{{ menu.index }}" data-url="{{ menu.url }}" bindtap="toPage">
+      <image src="{{ menu.img }}" class="menu-img"></image>
+      <text>{{ menu.name }}</text>
+    </view>
+  </view>
+</view>

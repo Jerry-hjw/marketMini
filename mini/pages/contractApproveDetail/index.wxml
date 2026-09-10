@@ -1,0 +1,804 @@
+<!--pages/contractApproveDetail/index.wxml-->
+<wxs module="StrUtil">
+	module.exports.includes = function (str1, str2) {
+		return str1.indexOf(str2) !== -1
+	}
+</wxs>
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view wx:if="{{ StrUtil.includes(type, 'contract') }}" class="container">
+    <view wx:if="{{ contractChange }}" class="data-box" style="font-size: 26rpx; margin-bottom: 25rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">合同变更信息</view>
+      <view class="flex-box-space">
+        <text>合同变更月份</text>
+        <text class="text">{{ contractChange.yearmonth }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>合同变更原因</text>
+        <text class="text">{{ contractChange.change_reason }}</text>
+      </view>
+    </view>
+    <view wx:if="{{ contractTerminal }}" class="data-box" style="font-size: 26rpx; margin-bottom: 25rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">合同解约信息</view>
+      <view class="flex-box-space">
+        <text>解约时间</text>
+        <text class="text">{{ contractTerminal.terminal_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>解约原因</text>
+        <text class="text">{{ contractTerminal.terminal_reason }}</text>
+      </view>
+      <view wx:if="{{ contractTerminal.listAddTerminalCostdetail && contractTerminal.listAddTerminalCostdetail.length > 0 }}" class="bold-font">新增费用</view>
+      <view wx:for="{{ contractTerminal.listAddTerminalCostdetail }}" wx:key="unique" wx:for-item="cost" style="padding: 20rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ cost.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>应收金额:</text>
+            <text class="text">{{ cost.terminal_amount }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <text>备注:</text>
+          <text class="text">{{ cost.remark }}</text>
+        </view>
+      </view>
+      <view wx:if="{{ contractTerminal.listRefundTerminalCostdetail && contractTerminal.listRefundTerminalCostdetail.length > 0 }}" class="bold-font">应退费用</view>
+      <view wx:for="{{ contractTerminal.listRefundTerminalCostdetail }}" wx:key="unique" wx:for-item="cost" style="padding: 20rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ cost.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>应退金额:</text>
+            <text class="text">{{ cost.contract_amount }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <text>实退金额:</text>
+          <text class="text">{{ cost.terminal_amount }}</text>
+        </view>
+      </view>
+      <view wx:if="{{ contractTerminal.listDeleteTerminalCostdetail && contractTerminal.listDeleteTerminalCostdetail.length > 0 }}" class="bold-font">免除费用费用</view>
+      <view wx:for="{{ contractTerminal.listDeleteTerminalCostdetail }}" wx:key="unique" wx:for-item="cost" style="padding: 20rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ cost.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>缴费周期:</text>
+            <text class="text">{{ cost.start_date + '~' + cost.end_date }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>应缴金额:</text>
+            <text class="text">{{ cost.contract_amount }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>免除金额:</text>
+            <text class="text">{{ cost.terminal_amount }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{ contractSettle }}" class="data-box" style="font-size: 26rpx; margin-bottom: 25rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">合同结算信息</view>
+      <view class="flex-box-space">
+        <text>结算时间</text>
+        <text class="text">{{ contractSettle.settle_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>结算原因</text>
+        <text class="text">{{ contractSettle.settle_remark }}</text>
+      </view>
+      <view wx:if="{{ contractSettle.listAddSettleCostdetail && contractSettle.listAddSettleCostdetail.length > 0 }}" class="bold-font">新增费用</view>
+      <view wx:for="{{ contractSettle.listAddSettleCostdetail }}" wx:key="unique" wx:for-item="cost" style="padding: 20rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ cost.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>应收金额:</text>
+            <text class="text">{{ cost.terminal_amount }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <text>备注:</text>
+          <text class="text">{{ cost.remark }}</text>
+        </view>
+      </view>
+      <view wx:if="{{ contractSettle.listRefundSettleCostdetail && contractSettle.listRefundSettleCostdetail.length > 0 }}" class="bold-font">应退费用</view>
+      <view wx:for="{{ contractSettle.listRefundSettleCostdetail }}" wx:key="unique" wx:for-item="cost" style="padding: 20rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ cost.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>应退金额:</text>
+            <text class="text">{{ cost.contract_amount }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <text>实退金额:</text>
+          <text class="text">{{ cost.terminal_amount }}</text>
+        </view>
+      </view>
+      <view wx:if="{{ contractSettle.listDeleteSettleCostdetail && contractSettle.listDeleteSettleCostdetail.length > 0 }}" class="bold-font">免除费用费用</view>
+      <view wx:for="{{ contractSettle.listDeleteSettleCostdetail }}" wx:key="unique" wx:for-item="cost" style="padding: 20rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ cost.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>缴费周期:</text>
+            <text class="text">{{ cost.start_date + '~' + cost.end_date }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>应缴金额:</text>
+            <text class="text">{{ cost.contract_amount }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>免除金额:</text>
+            <text class="text">{{ cost.terminal_amount }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">合同基本信息</view>
+      <view class="flex-box-space">
+        <text>合同类型:</text>
+        <text class="text">{{ unitType[contract.pr_unit_type_id] }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>合同编号:</text>
+        <text class="text">{{ contract.contract_number }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>合同名称:</text>
+        <text class="text">{{ contract.contract_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>客户姓名:</text>
+        <text class="text">{{ contract.prCustomerBean.customer_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>联系电话:</text>
+        <text class="text">{{ contract.prCustomerBean.contacts_phone }}</text>
+      </view>
+      <view wx:if="{{ contract.prCustomerBean.certificate_type }}" class="flex-box-space">
+        <text>证件类型:</text>
+        <text class="text">{{ certificateType[contract.prCustomerBean.certificate_type] }}</text>
+      </view>
+      <view wx:if="{{ contract.prCustomerBean.certificate_number }}" class="flex-box-space">
+        <text>证件号码:</text>
+        <text class="text">{{ contract.prCustomerBean.certificate_number }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>签约日期:</text>
+        <text class="text">{{ contract.signing_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>合同起止日期:</text>
+        <text class="text">{{ (contract.start_date || '') + ' ~ ' + (contract.end_date || '') }}</text>
+      </view>
+      <view wx:if="{{ contract.renovation_start_date }}" class="flex-box-space">
+        <text>装修起止日期:</text>
+        <text class="text">{{ contract.renovation_start_date + ' ~ ' + contract.renovation_end_date }}</text>
+      </view>
+      <view wx:if="{{ contract.free_start_date }}" class="flex-box-space">
+        <text>免租起止日期:</text>
+        <text class="text">{{ contract.free_start_date + ' ~ ' + contract.free_start_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>交付日期:</text>
+        <text class="text">{{ contract.due_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>总租赁面积:</text>
+        <text class="text">{{ contract.building_area }}㎡</text>
+      </view>
+      <view wx:if="{{ contract.brand_name }}" class="flex-box-space">
+        <text>品牌名称:</text>
+        <text class="text">{{ contract.brand_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>水费分摊:</text>
+        <text class="text">{{ contract.waterfee_share === 'Y' ? '是' : '否' }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>电费分摊:</text>
+        <text class="text">{{ contract.amfee_share === 'Y' ? '是' : '否' }}</text>
+      </view>
+      <view wx:if="{{ contract.rental_model }}" class="flex-box-space">
+        <text>收费模式:</text>
+        <text class="text">{{ rentalModel[contract.rental_model] }}</text>
+      </view>
+      <view wx:if="{{ contract.lease_purpose }}" class="flex-box-space">
+        <text>租赁用途:</text>
+        <text class="text">{{ contract.lease_purpose }}</text>
+      </view>
+      <view wx:if="{{ contract.remark }}" class="flex-box-space">
+        <text>备注:</text>
+        <text class="text">{{ contract.remark }}</text>
+      </view>
+    </view>
+    <view class="data-box" style="font-size: 26rpx; margin: 25rpx 0;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">合同费项信息</view>
+      <view wx:if="{{ unitCostList && unitCostList.length > 0 }}" class="bold-font">周期类费用</view>
+      <view wx:for="{{ unitCostList }}" wx:key="unique" wx:for-item="unitCost" style="padding: 20rpx 0;">
+        <view>{{ unitCost.prUnitBean.realty_full_name }}</view>
+        <view wx:for="{{ unitCost.prContractRelUnitRelCostBeanList }}" wx:key="unique" wx:for-item="cost" style="padding: 0 20rpx; margin: 20rpx 0; font-size: 24rpx;">
+          <view class="flex-box-start">
+            <view class="flex-box-start" style="flex: 1;">
+              <text>费用名称:</text>
+              <text class="text">{{ cost.prCostBean.cost_name }}</text>
+            </view>
+            <view class="flex-box-start" style="flex: 1;">
+              <text>缴费周期:</text>
+              <text class="text">{{ paymentCycle[cost.prCostBean.payment_cycle] }}</text>
+            </view>
+          </view>
+          <view class="flex-box-start">
+            <view class="flex-box-start" style="flex: 1;">
+              <text>开始日期:</text>
+              <text class="text">{{ cost.start_date }}</text>
+            </view>
+            <view class="flex-box-start" style="flex: 1;">
+              <text>结束日期:</text>
+              <text class="text">{{ cost.end_date }}</text>
+            </view>
+          </view>
+          <view class="flex-box-start">
+            <view class="flex-box-start" style="flex: 1;">
+              <text>含税价格:</text>
+              <text class="text">{{ cost.contract_price }}</text>
+            </view>
+            <view class="flex-box-start" style="flex: 1;">
+              <text>费用税率:</text>
+              <text class="text">{{ cost.tax_rate }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{ commissionCostList && commissionCostList.length > 0 }}" class="bold-font">提成费用</view>
+      <view wx:for="{{ commissionCostList }}" wx:key="unique" wx:for-item="commission" style="padding: 0 20rpx; margin: 20rpx 0; font-size: 24rpx;">
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>缴费周期:</text>
+            <text class="text">{{ commissionRule[commission.commission_rule] }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用税率:</text>
+            <text class="text">{{ commission.tax_rate }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>开始日期:</text>
+            <text class="text">{{ commission.start_date }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>结束日期:</text>
+            <text class="text">{{ commission.end_date }}</text>
+          </view>
+        </view>
+        <view class="flex-box-start">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>基础业绩:</text>
+            <text class="text">{{ commission.sales_min }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>提成率(%):</text>
+            <text class="text">{{ commission.commission_percentage }}</text>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{ onceCostList && onceCostList.length > 0 }}" class="bold-font">一次性费用</view>
+      <view wx:for="{{ onceCostList }}" wx:key="unique" wx:for-item="onceCost">
+        <view class="flex-box-start" style="padding: 0 20rpx; margin: 20rpx 0; box-sizing: border-box; font-size: 24rpx;">
+          <view class="flex-box-start" style="flex: 1;">
+            <text>费用名称:</text>
+            <text class="text">{{ onceCost.prCostBean.cost_name }}</text>
+          </view>
+          <view class="flex-box-start" style="flex: 1;">
+            <text>含税价格:</text>
+            <text class="text">{{ onceCost.contract_price }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{ contractFileList.length > 0 }}" class="data-box" style="font-size: 26rpx; margin: 25rpx 0;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">合同附件</view>
+      <view wx:for="{{ contractFileList }}" wx:key="unique" wx:for-item="file" data-url="{{ file.file_url }}" data-name="{{ file.file_name }}" bind:tap="openFile">
+        <view class="flex-box-space">
+          <view class="word-nowrap" style="max-width: calc(100% - 100rpx);">{{ file.file_name }}</view>
+          <view style="width: 80rpx; height: 40rpx; line-height: 40rpx; text-align: center; background-color: #8ec31f; color: #fff; border-radius: 8rpx; font-size: 24rpx;">预览</view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{ contract.contract_file_name }}" class="data-box" style="font-size: 26rpx; margin: 25rpx 0;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">已签合同</view>
+      <view class="flex-box-space" data-url="{{ contract.contract_file_url }}" data-name="{{ contract.contract_file_name }}" bind:tap="openFile">
+        <view class="word-nowrap" style="max-width: calc(100% - 100rpx);">{{ contract.contract_file_name }}</view>
+        <view style="width: 80rpx; height: 40rpx; line-height: 40rpx; text-align: center; background-color: #8ec31f; color: #fff; border-radius: 8rpx; font-size: 24rpx;">预览</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ StrUtil.includes(type, 'overtime') }}" class="container">
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">非营业作业基本信息</view>
+      <view class="flex-box-space">
+        <text>类型:</text>
+        <text class="text">{{ merchantType[merchantOvertime.overtime_type] }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请单号:</text>
+        <text class="text">{{ merchantOvertime.apply_code }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请商户:</text>
+        <text class="text">{{ merchantOvertime.customer_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>铺位号:</text>
+        <text class="text">{{ merchantOvertime.unit_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请人:</text>
+        <text class="text">{{ merchantOvertime.apply_user_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>联系方式:</text>
+        <text class="text">{{ merchantOvertime.apply_user_phone }}</text>
+      </view>
+      <view wx:if="{{ merchantOvertime.overtime_reason }}" class="flex-box-space">
+        <text>申请原因:</text>
+        <text class="text">{{ merchantOvertime.overtime_reason }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请时间:</text>
+        <text class="text">{{ merchantOvertime.apply_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>开始时间:</text>
+        <text class="text">{{ merchantOvertime.overtime_start || '' }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>结束时间:</text>
+        <text class="text">{{ merchantOvertime.overtime_end || '' }}</text>
+      </view>
+      <view wx:if="{{ merchantOvertime.overtimeWorkers }}" style="padding: 20rpx 0; color: #aaa;">
+        <view style="margin-bottom: 15rpx; color: #000;">人员名单:</view>
+        <view class="flex-box-start">
+          <text style="flex: 1; margin-right: 15rpx;">姓名</text>
+          <text style="flex: 1;">身份证号</text>
+        </view>
+        <view wx:for="{{ merchantOvertime.overtimeWorkers }}" wx:key="unique" wx:for-item="worker" class="flex-box-space">
+          <view style="flex: 1; margin-right: 15rpx;">{{ worker.name }}</view>
+          <view style="flex: 1;">{{ worker.quantity }}</view>
+        </view>
+      </view>
+      <view wx:if="{{ merchantOvertime.remark }}" class="flex-box-space">
+        <text>备注:</text>
+        <text class="text">{{ merchantOvertime.remark }}</text>
+      </view>
+    </view>
+    <view wx:if="{{ contractFileList.length > 0 }}" class="data-box" style="font-size: 26rpx; margin: 25rpx 0;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">非营业作业附件</view>
+      <view wx:for="{{ contractFileList }}" wx:key="unique" wx:for-item="file" data-url="{{ file.file_url }}" data-name="{{ file.file_name }}" bind:tap="openFile">
+        <view class="flex-box-space">
+          <view class="word-nowrap" style="max-width: calc(100% - 100rpx);">{{ file.file_name }}</view>
+          <view style="width: 80rpx; height: 40rpx; line-height: 40rpx; text-align: center; background-color: #8ec31f; color: #fff; border-radius: 8rpx; font-size: 24rpx;">预览</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ StrUtil.includes(type, 'materialinout') }}" class="container">
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">物品放行基本信息</view>
+      <view class="flex-box-space">
+        <text>类型:</text>
+        <text class="text">{{ merchantType[merchantMaterialInout.material_inout_type] }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请单号:</text>
+        <text class="text">{{ merchantMaterialInout.apply_code }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请商户:</text>
+        <text class="text">{{ merchantMaterialInout.customer_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>铺位号:</text>
+        <text class="text">{{ merchantMaterialInout.unit_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请人:</text>
+        <text class="text">{{ merchantMaterialInout.apply_user_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>联系方式:</text>
+        <text class="text">{{ merchantMaterialInout.apply_user_phone }}</text>
+      </view>
+      <view wx:if="{{ merchantMaterialInout.material_inout_reason }}" class="flex-box-space">
+        <text>申请原因:</text>
+        <text class="text">{{ merchantMaterialInout.material_inout_reason }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请时间:</text>
+        <text class="text">{{ merchantMaterialInout.apply_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>开始时间:</text>
+        <text class="text">{{ merchantMaterialInout.material_inout_start || '' }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>结束时间:</text>
+        <text class="text">{{ merchantMaterialInout.material_inout_end || '' }}</text>
+      </view>
+      <view wx:if="{{ merchantMaterialInout.materialDetail }}" style="padding: 20rpx 0; color: #aaa;">
+        <view style="margin-bottom: 15rpx; color: #000;">物品清单:</view>
+        <view class="flex-box-start">
+          <text style="flex: 2; margin-right: 15rpx;">物品名称</text>
+          <text style="flex: 1;">数量规格</text>
+        </view>
+        <view wx:for="{{ merchantMaterialInout.materialDetail }}" wx:key="unique" wx:for-item="material" class="flex-box-space">
+          <view style="flex: 2; margin-right: 15rpx;">{{ material.name }}</view>
+          <view style="flex: 1;">{{ material.quantity }}</view>
+        </view>
+      </view>
+      <view wx:if="{{ merchantMaterialInout.remark }}" class="flex-box-space">
+        <text>备注:</text>
+        <text class="text">{{ merchantMaterialInout.remark }}</text>
+      </view>
+    </view>
+    <view wx:if="{{ contractFileList.length > 0 }}" class="data-box" style="font-size: 26rpx; margin: 25rpx 0;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">物品放行附件</view>
+      <view wx:for="{{ contractFileList }}" wx:key="unique" wx:for-item="file" data-url="{{ file.file_url }}" data-name="{{ file.file_name }}" bind:tap="openFile">
+        <view class="flex-box-space">
+          <view class="word-nowrap" style="max-width: calc(100% - 100rpx);">{{ file.file_name }}</view>
+          <view style="width: 80rpx; height: 40rpx; line-height: 40rpx; text-align: center; background-color: #8ec31f; color: #fff; border-radius: 8rpx; font-size: 24rpx;">预览</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 维修申报 -->
+  <view wx:if="{{ StrUtil.includes(type, 'maintain') }}" class="container">
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">维修申报基本信息</view>
+      <view class="flex-box-space">
+        <text>申请单号:</text>
+        <text class="text">{{ merchantMaintain.apply_code }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请商户:</text>
+        <text class="text">{{ merchantMaintain.customer_name }}</text>
+      </view>
+      <!-- <view class="flex-box-space">
+        <text>铺位号:</text>
+        <text class="text">{{ merchantMaintain.unit_name }}</text>
+      </view> -->
+      <view class="flex-box-space">
+        <text>申请人:</text>
+        <text class="text">{{ merchantMaintain.apply_user_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>联系方式:</text>
+        <text class="text">{{ merchantMaintain.apply_user_phone }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>申请时间:</text>
+        <text class="text">{{ merchantMaintain.apply_date }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.apply_content }}" class="flex-box-space">
+        <text>报修内容:</text>
+        <text class="text">{{ merchantMaintain.apply_content }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.apply_maintain_date }}" class="flex-box-space">
+        <text>要求维修时间:</text>
+        <text class="text">{{ merchantMaintain.apply_maintain_date }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.maintain_manager }}" class="flex-box-space">
+        <text>委派人:</text>
+        <text class="text">{{ merchantMaintain.maintain_manager || '' }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.maintain_worker }}" class="flex-box-space">
+        <text>施工人:</text>
+        <text class="text">{{ merchantMaintain.maintain_worker || '' }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.maintain_start }}" class="flex-box-space">
+        <text>开工时间:</text>
+        <text class="text">{{ merchantMaintain.maintain_start || '' }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.maintain_end }}" class="flex-box-space">
+        <text>完工时间:</text>
+        <text class="text">{{ merchantMaintain.maintain_end || '' }}</text>
+      </view>
+      <view wx:if="{{ merchantMaintain.maintain_record }}">
+        <view style="margin: 20rpx 0;">维修记录:</view>
+        <textarea value="{{ merchantMaintain.maintain_record }}" style="width: 100%;" />
+      </view>
+      <view wx:if="{{ merchantMaintain.maintain_result }}">
+        <view style="margin: 20rpx 0;">维修结果:</view>
+        <textarea value="{{ merchantMaintain.maintain_result }}" style="width: 100%;" />
+      </view>
+      <view wx:if="{{ merchantMaintain.completeImg }}">
+        <view>完工图片</view>
+        <view class="flex-box-start" style="flex-wrap: wrap;">
+          <image wx:for="{{ merchantMaintain.completeImg }}" wx:key="index" src="{{ IMG_BASE_URL + item.url }}" style="width: 150rpx; height: 100rpx; margin-right: 15rpx;" mode="aspectFill" bind:tap="openFile" data-type="{{ item.type }}" data-url="{{ item.url }}" />
+        </view>
+      </view>
+      <view wx:if="{{ merchantMaintain.materialDetail }}" style="padding: 20rpx 0; color: #aaa;">
+        <view style="margin-bottom: 15rpx; color: #000;">材料清单:</view>
+        <view class="flex-box-start">
+          <text style="flex: 3; margin-right: 15rpx;">材料名称</text>
+          <text style="flex: 1; margin-right: 15rpx;">规格</text>
+          <text style="flex: 1; margin-right: 15rpx;">单位</text>
+          <text style="flex: 1;">数量</text>
+        </view>
+        <view wx:for="{{ merchantMaintain.materialDetail }}" wx:key="unique" wx:for-item="material" class="flex-box-space">
+          <view style="flex: 3; margin-right: 15rpx;">{{ material.name }}</view>
+          <view style="flex: 1; margin-right: 15rpx;">{{ material.sku }}</view>
+          <view style="flex: 1; margin-right: 15rpx;">{{ material.unit }}</view>
+          <view style="flex: 1;">{{ material.quantity }}</view>
+        </view>
+      </view>
+      <view wx:if="{{ merchantMaintain.remark }}" class="flex-box-space">
+        <text>备注:</text>
+        <text class="text">{{ merchantMaintain.remark }}</text>
+      </view>
+    </view>
+    <view wx:if="{{ contractFileList.length > 0 }}" class="data-box" style="font-size: 26rpx; margin: 25rpx 0;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">维修申报附件</view>
+      <view wx:for="{{ contractFileList }}" wx:key="unique" wx:for-item="file" data-url="{{ file.file_url }}" data-name="{{ file.file_name }}" bind:tap="openFile">
+        <view class="flex-box-space">
+          <view class="word-nowrap" style="max-width: calc(100% - 100rpx);">{{ file.file_name }}</view>
+          <view style="width: 80rpx; height: 40rpx; line-height: 40rpx; text-align: center; background-color: #8ec31f; color: #fff; border-radius: 8rpx; font-size: 24rpx;">预览</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ StrUtil.includes(type, 'product') }}" class="container">
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">商品基本信息</view>
+      <view class="flex-box-space">
+        <text>客户名称:</text>
+        <text class="text">{{ product.customer_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>商品类型:</text>
+        <text class="text">{{ productType[product.product_type] }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>商品编号:</text>
+        <text class="text">{{ product.product_code }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>商品名称:</text>
+        <text class="text">{{ product.product_name }}</text>
+      </view>
+      <view wx:if="{{ product.price }}" class="flex-box-space">
+        <text>商品价格:</text>
+        <text class="text">{{ product.price }}</text>
+      </view>
+      <view wx:if="{{ product.exchange_price }}" class="flex-box-space">
+        <text>兑换价格:</text>
+        <text class="text">{{ product.exchange_price }}</text>
+      </view>
+      <view wx:if="{{ product.exchange_integral }}" class="flex-box-space">
+        <text>兑换积分:</text>
+        <text class="text">{{ product.exchange_integral }}</text>
+      </view>
+      <view wx:if="{{ product.inventory_quantity }}" class="flex-box-space">
+        <text>库存数量:</text>
+        <text class="text">{{ product.inventory_quantity }}</text>
+      </view>
+      <view wx:if="{{ product.member_level }}" class="flex-box-space">
+        <text>兑换等级:</text>
+        <text class="text">{{ memberLevel[product.member_level] }}</text>
+      </view>
+      <view wx:if="{{ product.exchange_max }}" class="flex-box-space">
+        <text>最大兑换数量:</text>
+        <text class="text">{{ product.exchange_max }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>领取开始日期:</text>
+        <text class="text">{{ product.get_valid_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>使用起止日期:</text>
+        <text class="text">{{ (product.use_start_date || '') + ' ~ ' + (product.use_end_date || '') }}</text>
+      </view>
+      <view wx:if="{{ product.product_pic_1 }}" class="flex-box-space">
+        <text>商品图片:</text>
+        <view class="flex-box-end" style="width: calc(100% - 140rpx); flex-wrap: wrap;">
+          <image wx:if="{{ product.product_pic_1 }}" src="{{ IMG_BASE_URL + product.product_pic_1 }}" mode="aspectFill" style="width: 200rpx; height: 130rpx;" data-url="{{ IMG_BASE_URL + product.product_pic_1 }}" bind:tap="openFile" />
+          <image wx:if="{{ product.product_pic_2 }}" src="{{ IMG_BASE_URL + product.product_pic_2 }}" mode="aspectFill" style="width: 200rpx; height: 130rpx; margin-left: 15rpx;" data-url="{{ IMG_BASE_URL + product.product_pic_2 }}" bind:tap="openFile" />
+          <image wx:if="{{ product.product_pic_3 }}" src="{{ IMG_BASE_URL + product.product_pic_3 }}" mode="aspectFill" style="width: 200rpx; height: 130rpx; margin-left: 15rpx;" data-url="{{ IMG_BASE_URL + product.product_pic_3 }}" bind:tap="openFile" />
+          <image wx:if="{{ product.product_pic_4 }}" src="{{ IMG_BASE_URL + product.product_pic_4 }}" mode="aspectFill" style="width: 200rpx; height: 130rpx; margin-left: 15rpx;" data-url="{{ IMG_BASE_URL + product.product_pic_4 }}" bind:tap="openFile" />
+          <image wx:if="{{ product.product_pic_5 }}" src="{{ IMG_BASE_URL + product.product_pic_5 }}" mode="aspectFill" style="width: 200rpx; height: 130rpx; margin-left: 15rpx;" data-url="{{ IMG_BASE_URL + product.product_pic_5 }}" bind:tap="openFile" />
+        </view>
+      </view>
+      <view wx:if="{{ product.product_info }}" style="padding: 20rpx 0;">
+        <view style="margin-bottom: 15rpx;">商品介绍:</view>
+        <rich-text nodes="{{ product.product_info }}"></rich-text>
+      </view>
+      <view wx:if="{{ product.remark }}" class="flex-box-space">
+        <text>备注:</text>
+        <text class="text">{{ product.remark }}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ StrUtil.includes(type, 'coupon') }}" class="container">
+    <view class="data-box" style="font-size: 26rpx;">
+      <view class="flex-box bold-font" style="font-size: 35rpx;">优惠券基本信息</view>
+      <view class="flex-box-space">
+        <text>优惠券类型:</text>
+        <text class="text">{{ couponType[coupon.coupon_type] }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>优惠券批次号:</text>
+        <text class="text">{{ coupon.coupon_batch_no }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>优惠券名称:</text>
+        <text class="text">{{ coupon.coupon_name }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>优惠券数量:</text>
+        <text class="text">{{ coupon.coupon_quantity }}</text>
+      </view>
+      <view wx:if="{{ coupon.coupon_type !== '04' }}" class="flex-box-space">
+        <text>{{ amountName[coupon.coupon_type] }}:</text>
+        <text class="text">{{ coupon.coupon_amount }}</text>
+      </view>
+      <view wx:if="{{ coupon.coupon_type !== '04' }}" class="flex-box-space">
+        <text>最低使用金额:</text>
+        <text class="text">{{ coupon.coupon_limit_amount }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>发布日期:</text>
+        <text class="text">{{ coupon.coupon_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>领取开始日期:</text>
+        <text class="text">{{ coupon.get_valid_date }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text>使用起止日期:</text>
+        <text class="text">{{ (coupon.use_start_date || '') + ' ~ ' + (coupon.use_end_date || '') }}</text>
+      </view>
+      <view wx:if="{{ coupon.coupon_cover_url }}" class="flex-box-space">
+        <text>优惠券封面:</text>
+        <image src="{{ IMG_BASE_URL + coupon.coupon_cover_url }}" mode="aspectFill" style="width: 200rpx; height: 130rpx;" data-url="{{ coupon.coupon_cover_url }}" bind:tap="openFile" />
+      </view>
+      <view wx:if="{{ coupon.coupon_info }}" style="padding: 20rpx 0;">
+        <view style="margin-bottom: 15rpx;">优惠券简介:</view>
+        <rich-text nodes="{{ coupon.coupon_info }}"></rich-text>
+      </view>
+      <view wx:if="{{ coupon.remark }}" class="flex-box-space">
+        <text>备注:</text>
+        <text class="text">{{ coupon.remark }}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ (approveStatus === 'approving' || approveStatus === 'terminaling' || approveStatus === 'changing' || approveStatus === 'settleing' || approveStatus === 'abolishing') && !StrUtil.includes(type, 'maintain') }}" class="flex-box-start" style="padding: 40rpx 20rpx; box-sizing: border-box;">
+    <view wx:if="{{ approveFrom !== 'Y' }}" style="flex: 1; height: 70rpx; line-height: 70rpx;" class="primary-button" data-status="N" bind:tap="showPopup">审核驳回</view>
+    <view wx:if="{{ approveFrom !== 'N' }}" style="flex: 1; height: 70rpx; line-height: 70rpx; margin-left: 25rpx;" class="primary-button" data-status="Y" bind:tap="showPopup">审核通过</view>
+  </view>
+  <view wx:if="{{ StrUtil.includes(type, 'maintain') && StrUtil.includes(taskKey, 'assign') }}" class="flex-box" style="padding: 40rpx 20rpx; box-sizing: border-box;">
+    <view style="flex: 1; height: 70rpx; line-height: 70rpx;" class="primary-button" bind:tap="showRefuse">拒绝</view>
+    <view style="flex: 1; height: 70rpx; line-height: 70rpx; margin-left: 25rpx;" class="primary-button" bind:tap="showAssign">委派</view>
+  </view>
+  <view wx:if="{{ StrUtil.includes(type, 'maintain') && StrUtil.includes(taskKey, 'work') }}" class="flex-box" style="padding: 40rpx 0;">
+    <view style="width: 50%; height: 70rpx; line-height: 70rpx;" class="primary-button" bind:tap="showAssign">完工</view>
+  </view>
+</view>
+
+<view wx:if="{{ dialogVisible }}" bind:close="closePopup" class="toast">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container" style="background-color: #fff;">
+    <form bindsubmit="approve">
+      <input type="text" value="{{ approveContent }}" name="remark" maxlength="12" style="width: 100%; margin-bottom: 20rpx; background: rgb(240, 240, 240); height: 80rpx; border-radius: 8rpx; font-size: 28rpx; text-align: center;" placeholder="请输入审核备注" />
+      <view class="flex-box" style="margin-top: 20rpx;">
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #8ce31f; border-radius: 15rpx; color: #fff; text-align: center; font-size: 30rpx;" form-type="submit">确 认</button>
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #888888; color: #fff; border-radius: 15rpx; text-align: center; font-size: 30rpx;" form-type="reset">重 置</button>
+      </view>
+    </form>
+  </view>
+</view>
+
+<view wx:if="{{ refuseVisible }}" bind:close="closePopup" class="toast">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container" style="background-color: #fff;">
+    <form bindsubmit="noassign">
+      <input type="text" value="{{ approveContent }}" name="approveContent" maxlength="12" style="width: 100%; margin-bottom: 20rpx; background: rgb(240, 240, 240); height: 80rpx; border-radius: 8rpx; font-size: 28rpx; text-align: center;" placeholder="请输入拒绝原因" />
+      <view class="flex-box" style="margin-top: 20rpx;">
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #8ce31f; border-radius: 15rpx; color: #fff; text-align: center; font-size: 30rpx;" form-type="submit">确 认</button>
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #888888; color: #fff; border-radius: 15rpx; text-align: center; font-size: 30rpx;" form-type="reset">重 置</button>
+      </view>
+    </form>
+  </view>
+</view>
+
+<view wx:if="{{ assignVisible }}" bind:close="closePopup" class="toast">
+  <view class="toast-bg" bind:tap="closePopup"></view>
+  <view class="toast-container" style="background-color: #fff; line-height: 60rpx; max-height: 90vh; overflow: auto;">
+    <form bindsubmit="confirm">
+      <view wx:if="{{ StrUtil.includes(taskKey, 'assign') }}" class="flex-box">
+        <text>施工人：</text>
+        <picker mode="selector" range="{{ employeeList }}" range-key="employee_name" bindchange="chooseEmployee" style="margin-left: 20rpx; width: calc(100% - 150rpx);">{{ employee_name || '请选择 >' }}</picker>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}" class="flex-box">
+        <text>动工日期：</text>
+        <picker mode="date" bindchange="setProp" data-prop="start_date" style="margin-left: 20rpx; width: calc(100% - 180rpx);">{{ merchantMaintain.start_date || '请选择 >' }}</picker>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}" class="flex-box">
+        <text>动工时间：</text>
+        <picker mode="time" bindchange="setProp" data-prop="start_time" style="margin-left: 20rpx; width: calc(100% - 180rpx);">{{ merchantMaintain.start_time || '请选择 >' }}</picker>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}" class="flex-box">
+        <text>完成日期：</text>
+        <picker mode="date" bindchange="setProp" data-prop="end_date" style="margin-left: 20rpx; width: calc(100% - 180rpx);">{{ merchantMaintain.end_date || '请选择 >' }}</picker>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}" class="flex-box">
+        <text>完成时间：</text>
+        <picker mode="time" bindchange="setProp" data-prop="end_time" style="margin-left: 20rpx; width: calc(100% - 180rpx);">{{ merchantMaintain.end_time || '请选择 >' }}</picker>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}">
+        <view>维修记录</view>
+        <textarea value="{{ merchantMaintain.maintain_record }}" maxlength="500" data-prop="maintain_record" bindinput="setProp" style="width: 100%; border-radius: 8rpx; border: 1rpx solid #aaa;"/>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}">
+        <view>维修结果</view> 
+        <textarea value="{{ merchantMaintain.maintain_result }}" maxlength="500" data-prop="maintain_result" bindinput="setProp" style="width: 100%; border-radius: 8rpx; border: 1rpx solid #aaa;"/>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}">
+        <view class="flex-box-space" style="border: none;">
+          <view>上传完工图片</view>
+          <view wx:if="{{ fileList.length < 5 }}" style="width: 40rpx; height: 40rpx; line-height: 37rpx; text-align: center; border-radius: 50%; border: 1rpx solid #8ce31f; color: #8ce31f; font-size: 30rpx;" data-prop="fileList" bind:tap="upload">+</view>
+        </view>
+        <view wx:for="{{ fileList }}" wx:key="index" class="flex-box-space img-item" style="border: none;">
+          <image src="{{ IMG_BASE_URL + item.url }}" style="width: 150rpx; height: 100rpx;" mode="aspectFill" bind:tap="openFile" data-type="{{ item.type }}" data-url="{{ item.url }}" />
+          <view style="width: 80rpx; height: 50rpx; background-color: #8ce31f; border-radius: 5rpx; line-height: 50rpx; text-align: center; color: #fff; font-size: 26rpx;" data-url="{{ item.url }}" data-prop="fileList" bind:tap="deleteFile">删除</view>
+        </view>
+      </view>
+      <view wx:if="{{ StrUtil.includes(taskKey, 'work') }}">
+        <view>材料清单</view>
+        <view wx:for="{{ [0, 1, 2, 3, 4] }}" wx:key="index" style="margin-bottom: 25rpx;">
+          <view style="font-size: 26rpx;" class="flex-box-space">
+            <text>材料名称{{ index + 1 }}</text>
+            <input type="text" placeholder="请输入材料名称" style="width: calc(100% - 140rpx);" data-prop="{{ 'name' + index }}" bindinput="setProp" />
+          </view>
+          <view style="font-size: 26rpx;" class="flex-box-space">
+            <text>规格{{ index + 1 }}</text>
+            <input type="text" placeholder="请输入规格" style="width: calc(100% - 140rpx);" data-prop="{{ 'sku' + index }}" bindinput="setProp" />
+          </view>
+          <view style="font-size: 26rpx;" class="flex-box-space">
+            <text>单位{{ index + 1 }}</text>
+            <input type="text" placeholder="请输入单位" style="width: calc(100% - 140rpx);" data-prop="{{ 'unit' + index }}" bindinput="setProp" />
+          </view>
+          <view style="font-size: 26rpx;" class="flex-box-space">
+            <text>数量{{ index + 1 }}</text>
+            <input type="text" placeholder="请输入数量" style="width: calc(100% - 140rpx);" data-prop="{{ 'quantity' + index }}" bindinput="setProp" />
+          </view>
+        </view>
+      </view>
+      <view class="flex-box" style="margin-top: 20rpx;">
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #8ce31f; border-radius: 15rpx; color: #fff; text-align: center; font-size: 30rpx;" form-type="submit">确 认</button>
+        <button style="width: 200rpx; height: 85rpx; line-height: 55rpx; background: #888888; color: #fff; border-radius: 15rpx; text-align: center; font-size: 30rpx;" form-type="reset">重 置</button>
+      </view>
+    </form>
+  </view>
+</view>

@@ -1,0 +1,26 @@
+<!--pages/rechargeRecord/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx;">
+    <scroll-view scroll-y style="max-height: 90vh;" bindscrolltolower="queryRechargeList">
+      <view wx:for="{{ rechargeList }}" wx:key="unique" class="data-box" style="margin-top: 25rpx; font-size: 26rpx; line-height: 50rpx;">
+        <view class="flex-box-space">
+          <text style="color: #aaa;">充值编号：</text>
+          <text>{{ item.recharge_code }}</text>
+        </view>
+        <view class="flex-box-space">
+          <text style="color: #aaa;">充值金额：</text>
+          <text style="color:#ff1725; font-size: 35rpx;">{{ item.recharge_amount }}</text>
+        </view>
+        <view class="flex-box-space">
+          <text style="color: #aaa;">充值日期：</text>
+          <text>{{ item.recharge_date }}</text>
+        </view>
+        <!-- <view class="flex-box-space">
+          <text style="color: #aaa;">充值状态</text>
+          <text>{{ item.recharge_date }}</text>
+        </view> -->
+      </view>
+    </scroll-view>
+  </view>
+</view>

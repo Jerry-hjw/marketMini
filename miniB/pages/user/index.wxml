@@ -1,0 +1,70 @@
+<!--pages/user/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 130rpx;">
+    <view class="flex-box-start" bindtap="openVisible">
+      <view style="width: 110rpx; height: 110rpx; border-radius: 50%; box-shadow: 0 0 10rpx #afadad; margin-right: 25rpx; position: relative;">
+        <image src="{{ avatarUrl || '/img/avatarUrl.png' }}" style="width: 100%; height: 100%; border-radius: 50%; position: absolute; top: 0; left: 0;"></image>
+      </view>
+      <view>
+        <view>{{ nickName || '点击授权头像和昵称' }}</view>
+      </view>
+    </view>
+    <view class="flex-box-space" style="margin: 30rpx 0; font-size: 30rpx; color: #999;" data-url="/pages/userDetail/index" bind:tap="toPage">
+      <view class="flex-box-start">
+        <image src="/img/userLogo.png" class="logo"></image>
+        <text>个人信息</text>
+      </view>
+      <image src="/img/ic_right.png" style="width: 15rpx;" mode="widthFix"></image>
+    </view>
+    <view wx:if="{{ business_user_type === 'boss' && member_type === 'customer' }}" class="flex-box-space" style="margin: 30rpx 0; font-size: 30rpx; color: #999;" data-url="/pages/customerContacts/index" bind:tap="toPage">
+      <view class="flex-box-start">
+        <image src="/img/userLogo.png" class="logo"></image>
+        <text>人员管理</text>
+      </view>
+      <image src="/img/ic_right.png" style="width: 15rpx;" mode="widthFix"></image>
+    </view>
+    <picker wx:if="{{ customerList.length > 1 && member_type === 'customer' }}" header-text="选择租户" range="{{ customerList }}" range-key="customer_name" mode="selector" bindchange="chooseCustomer">
+      <view class="flex-box-space" style="margin: 30rpx 0; font-size: 30rpx; color: #999;">
+        <view class="flex-box-start">
+          <image src="/img/userLogo.png" class="logo"></image>
+          <text>切换租户</text>
+        </view>
+        <image src="/img/ic_right.png" style="width: 15rpx;" mode="widthFix"></image>
+      </view>
+    </picker>
+    <button wx:if="{{  member_type !== 'customer' }}" class="flex-box-space" style="width: 100%; padding: 0; margin: 30rpx 0; background-color: transparent; font-size: 30rpx; font-weight: normal; color: #999;" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+      <view class="flex-box-space">
+        <view class="flex-box-start">
+          <image src="/img/userLogo.png" class="logo"></image>
+          <text>租户登录</text>
+        </view>
+        <image src="/img/ic_right.png" style="width: 15rpx;" mode="widthFix"></image>
+      </view>
+    </button>
+    <!-- <view class="flex-box-space" style="margin: 30rpx 0; font-size: 30rpx; color: #999;" data-url="/pages/scanCode/index" bind:tap="toPage">
+      <view class="flex-box-start">
+        <image src="/img/userLogo.png" class="logo"></image>
+        <text>扫码核销</text>
+      </view>
+      <image src="/img/ic_right.png" style="width: 15rpx;" mode="widthFix"></image>
+    </view>
+    <view class="flex-box-space" style="margin: 30rpx 0; font-size: 30rpx; color: #999;" data-url="/pages/verifyHistory/index" bind:tap="toPage">
+      <view class="flex-box-start">
+        <image src="/img/userLogo.png" class="logo"></image>
+        <text>核销记录</text>
+      </view>
+      <image src="/img/ic_right.png" style="width: 15rpx;" mode="widthFix"></image>
+    </view> -->
+  </view>
+</view>
+<menu menuIndex="{{ 5 }}"></menu>
+
+<view wx:if="{{ visible }}" class="toast">
+  <view class="toast-bg" bindtap="closePopup"></view>
+  <view class="toast-container">
+    <view style="margin-bottom: 20rpx; text-align: center;">授权系统获取微信头像与昵称</view>
+    <button class="popupBtn" bindtap="getUserProfile" wx:if="{{ canGetUserProfile }}">确定</button>
+    <button class="popupBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfo" wx:else>确定</button>
+  </view>
+</view>

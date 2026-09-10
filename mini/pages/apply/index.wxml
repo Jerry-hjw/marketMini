@@ -1,0 +1,21 @@
+<!--pages/apply/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container">
+    <view wx:for="{{ dataList }}" wx:key="unique" data-id="{{ item.oa_merchant_overtime_id || item.oa_merchant_maintain_id || item.oa_merchant_material_inout_id }}" class="data-box" style="margin-bottom: 20rpx;" bindtap="toDetail">
+      <view class="flex-box-space">
+        <text class="label">申请单号: </text>
+        <text class="value">{{ item.apply_code }}</text>
+      </view>
+      <view wx:if="{{ item.apply_date }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">申请时间: </text>
+        <text class="value">{{ item.apply_date }}</text>
+      </view>
+      <view wx:if="{{ item.apply_status }}" class="flex-box-space" style="margin-top: 15rpx;">
+        <text class="label">状态</text>
+        <text class="value">{{ item.evaluate_status === 'Y' ? '已验收完成' : (item.oa_merchant_maintain_id && item.apply_status === 'approvepass' ? '维修完工待确认' : applyStatus[item.apply_status]) }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="fixed" style="width: 94%; height: 80rpx; line-height: 80rpx; border-radius: 8rpx; background: #8ec31f; color: #fff; text-align: center; margin: 25rpx 0;" bind:tap="toDetail">+ 新 增</view>
+</view>

@@ -1,0 +1,9 @@
+<!--pages/swiperDetail/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding: 20rpx 0;">
+    <image src="{{ IMG_BASE_URL + swiper.swiper_img_url }}" style="width: 100%;" mode="widthFix"/>
+    <view class="bold-font" style="margin: 30rpx auto; font-size: 40rpx; text-align: center;">{{ swiper.title }}</view>
+    <rich-text nodes="{{ swiper.content }}"/>
+  </view>
+</view>

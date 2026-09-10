@@ -1,0 +1,24 @@
+<!--pages/contract/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 20rpx;">
+    <view wx:for="{{ contractList }}" wx:key="unique" class="data-box" style="font-size: 26rpx; color: #333; margin-bottom: 20rpx;" data-item="{{ item }}" bind:tap="toDetail">
+      <view class="flex-box-space" style="margin-bottom: 10rpx;">
+        <text style="color: #999;">合同编号</text>
+        <text>{{ item.contract_number }}</text>
+      </view>
+      <view class="flex-box-space" style="margin-bottom: 10rpx;">
+        <text style="color: #999;">合同名称</text>
+        <text>{{ item.contract_name }}</text>
+      </view>
+      <view class="flex-box-space" style="margin-bottom: 10rpx;">
+        <text style="color: #999;">起止日期</text>
+        <text>{{ (item.start_date || '') + ' ~ ' + (item.end_date || '') }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text style="color: #999;">合同状态</text>
+        <text>{{ contractStatus[item.contract_status] }}</text>
+      </view>
+    </view>
+  </view>
+</view>

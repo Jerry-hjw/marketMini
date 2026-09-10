@@ -1,0 +1,42 @@
+<!--pages/result/index.wxml-->
+<view style="position: relative;">
+    <view style="position: absolute; top: 0; left: 0; width: 100%; height: 700rpx; background: linear-gradient(to bottom, #3f92fc , #7ec3fe, #a3d7f7, #fff); z-index: -999;"></view>
+    <view wx:if="{{ status === 'SUCCESS' }}" class="flex-box" style="padding-top: 50rpx; color: #fff;">
+        <icon type="success" size="90" color="#fff"></icon>
+        <text wx:if="{{ status === 'SUCCESS' }}" style="font-size: 60rpx; margin-left: 30rpx; font-weight: bold;">{{ message }}</text>
+    </view>
+    <view wx:elif="{{ status === 'FAIL' }}" class="flex-box-vertical" style="padding-top: 170rpx;">
+        <icon type="warn" size="90" color="#f82525"></icon>
+        <view style="margin-top: 10rpx; text-align: center;">
+            <view style="font-size: 60rpx; font-weight: bold;">核销失败</view>
+            <view style="font-size: 36rpx;">{{ message }}</view>
+        </view>
+    </view>
+    <view wx:elif="{{ status === 'refresh' }}" class="flex-box-vertical" style="padding-top: 170rpx;">
+        <icon type="info" size="90"></icon>
+        <text style="font-size: 60rpx; font-weight: bold; margin-left: 30rpx;">请刷新后重试</text>
+    </view>
+    <view wx:if="{{ item }}" class="container verify">
+        <image src="/img/resultContainer.png" style="position: absolute; top: -14rpx; left: -2%; z-index: -998; width: 104%; " mode="widthFix"></image>
+        <view class="flex-box-space">
+            <text class="verify-label">核销券码</text>
+            <text class="verify-value">{{ item.verification_code || '' }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 30rpx;">
+            <text class="verify-label">订单编号</text>
+            <text class="verify-value">{{ item.order_code || '' }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 30rpx;">
+            <text class="verify-label">订单内容</text>
+            <text class="verify-value">{{ item.order_name || '' }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 30rpx;">
+            <text class="verify-label">数量</text>
+            <text class="verify-value">{{ item.quantity || '' }}</text>
+        </view>
+        <view class="flex-box-space" style="margin-top: 30rpx;">
+            <text class="verify-label">订单金额</text>
+            <text class="verify-value">{{ item.price || '' }}</text>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,59 @@
+<!--pages/recharge/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 130rpx;">
+    <view style="padding: 30rpx; border-radius: 10rpx; letter-spacing: 5rpx; background: linear-gradient(to right, #72e430, #cafc85);">
+      <view class="bold-font" style="font-size: 40rpx;">{{ recharge.customer_name }}</view>
+      <view class="flex-box-start" style="margin-top: 25rpx; line-height: 70rpx;">
+        <view style="font-size: 30rpx; margin-right: 25rpx; letter-spacing: 1rpx;">账户余额:</view>
+        <view class="bold-font" style="font-size: 40rpx;">￥<text style="font-size: 60rpx;">{{ recharge.holley_usablemoney || 0 }}</text></view>
+      </view>
+      <view class="flex-box" style="font-size: 26rpx; margin-top: 20rpx;">
+        <view style="flex: 1; text-align: center; border-right: 2rpx solid #999;">充值记录</view>
+        <view style="flex: 1; text-align: center;" bind:tap="call">联系客服</view>
+      </view>
+    </view>
+    <view class="bold-font" style="margin: 20rpx 0;">充值金额</view>
+    <view class="data-box">
+      <input type="digit" placeholder="自定义充值金额（最低金额50元）" style="padding: 20rpx 50rpx; border: 2rpx solid #72e430; border-radius: 8rpx; font-size: 26rpx;" bindinput="setAmount"/>
+      <view class="flex-box">
+        <view class="amount" data-amount="500" bind:tap="recharge">500元</view>
+        <view class="amount" data-amount="800" bind:tap="recharge">1000元</view>
+      </view>
+      <view class="flex-box">
+        <view class="amount" data-amount="1000" bind:tap="recharge">2000元</view>
+        <view class="amount" data-amount="2000" bind:tap="recharge">5000元</view>
+      </view>
+    </view>
+    <view class="primary-button bold-font" style="width: 100%; height: 90rpx; line-height: 90rpx; background: linear-gradient(to bottom, #cafc85, #72e430); margin: 20rpx 0; font-size: 35rpx;" bind:tap="recharge">立 即 充 值</view>
+    <view class="bold-font">充值记录</view>
+    <view wx:for="{{ rechargeList }}" wx:key="unique" class="data-box" style="margin-top: 25rpx; font-size: 26rpx; line-height: 50rpx;">
+      <view class="flex-box-space">
+        <text style="color: #aaa;">充值编号：</text>
+        <text>{{ item.recharge_code }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text style="color: #aaa;">充值金额：</text>
+        <text style="color:#ff1725; font-size: 35rpx;">{{ item.recharge_amount }}</text>
+      </view>
+      <view class="flex-box-space">
+        <text style="color: #aaa;">充值日期：</text>
+        <text>{{ item.recharge_date }}</text>
+      </view>
+      <!-- <view class="flex-box-space">
+        <text style="color: #aaa;">充值状态</text>
+        <text>{{ item.recharge_date }}</text>
+      </view> -->
+    </view>
+  </view>
+  <!-- <view class="flex-box data-box fixed" style="width: 94%; margin: 20rpx auto;" bind:tap="call">
+    <view class="flex-box-vertical" style="flex: 1; font-size: 26rpx;">
+      <image src="/img/customerService.png" style="width: 50rpx; height: 50rpx; margin-bottom: 10rpx;" />
+      <view>联系客服</view>
+    </view>
+    <view class="flex-box-vertical" style="flex: 1; font-size: 26rpx;">
+      <image src="/img/record.png" style="width: 50rpx; height: 50rpx; margin-bottom: 10rpx;" />
+      <view>充值记录</view>
+    </view>
+  </view> -->
+</view>

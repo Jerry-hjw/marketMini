@@ -1,0 +1,40 @@
+<!--pages/userDetail/index.wxml-->
+<view class="main">
+  <image src="/img/bgImg.jpg" class="bg-img"></image>
+  <view style="position: absolute; bottom: 0; left: 0; width: 96%; height: 96%; border-radius: 0 200rpx 0 0; background: #fff; box-shadow: 0 0 8rpx #afadad;">
+    <view class="flex-box-vertical" style="margin: 70rpx 0 60rpx;">
+      <button style="width: 150rpx; height: 150rpx; padding: 0; margin-bottom: 20rpx;" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image src="{{ avatarUrl || '/img/avatarUrl.png' }}" style="width: 150rpx; height: 150rpx; margin-bottom: 20rpx;"></image>
+      </button>
+      <view style="font-size: 30rpx; color: #666;">点击上传头像</view>
+    </view>
+    <view style="padding-left: 30rpx;">
+      <view style="margin-bottom: 40rpx; font-size: 24rpx;">基本信息</view>
+      <view class="flex-box-start" style="padding: 25rpx 0; box-sizing: border-box;">
+        <image src="/img/fullName.png" style="width: 35rpx; height: 35rpx; margin-right: 30rpx;"></image>
+        <input type="text" value="{{ full_name }}" placeholder="请输入您的姓名" placeholder-style="color: #999; font-size: 26rpx;" data-prop="full_name" bindinput="setValue" />
+      </view>
+      <view class="flex-box-start" style="padding: 25rpx 0; box-sizing: border-box;">
+        <image src="/img/gender.png" style="width: 35rpx; height: 35rpx; margin-right: 30rpx;"></image>
+        <radio-group data-prop="gender" bindchange="setValue" style="color: #999; font-size: 26rpx;">
+          <label for="">
+            <radio checked="{{ gender == '1' }}" value="1" color="#9ae533" />男
+          </label>
+          <label for="" style="margin-left: 40rpx;">
+            <radio checked="{{ gender == '2' }}" value="2" color="#9ae533" />女
+          </label>
+        </radio-group>
+      </view>
+      <view class="flex-box-space">
+        <view class="flex-box-start" style="padding: 25rpx 0; box-sizing: border-box;">
+          <image src="/img/birthday.png" style="width: 35rpx; height: 35rpx; margin-right: 30rpx;"></image>
+          <picker mode="date" start="2000-01-01" value="{{ birthday }}" data-prop="birthday" bindchange="setValue" style="color: #999; font-size: 26rpx; width: 80%;">{{ birthday || '请选择您的生日' }}</picker>
+        </view>
+        <image src="/img/ic_right.png" style="width: 15rpx; height: 28rpx; transform: rotate(90deg); margin-right: 40rpx;" />
+      </view>
+    </view>
+    <view class="flex-box" style="position: absolute; bottom: 40rpx; left: 50%; transform: translate(-50%, 0);">
+      <view class="bold-font" style="width: 200rpx; padding: 25rpx 45rpx; text-align: center; background: linear-gradient(to bottom, #cafc85, #9ae533); border-radius: 50rpx; box-shadow: 0 0 4rpx #afadad; letter-spacing: 5rpx;" bind:tap="save">保 存</view>
+    </view>
+  </view>
+</view>

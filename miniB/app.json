@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/rental/index",
+    "pages/logs/logs",
+    "pages/merchantSales/index",
+    "pages/merchantSalesDetail/index",
+    "pages/bill/index",
+    "pages/billDetail/index",
+    "pages/user/index",
+    "pages/userDetail/index",
+    "pages/contract/index",
+    "pages/contractDetail/index",
+    "pages/paySuccess/index",
+    "pages/redirectOut/index",
+    "pages/swiperDetail/index",
+    "pages/customerContacts/index",
+    "pages/doc/index",
+    "pages/apply/index",
+    "pages/applyDetail/index",
+    "pages/result/index",
+    "pages/scanCode/index",
+    "pages/verifyHistory/index",
+    "pages/marketing/index",
+    "pages/recharge/index",
+    "pages/invoiceList/index",
+    "pages/invoiceDetail/index",
+    "pages/brandGuide/index",
+    "pages/approveList/index",
+    "pages/approveProcess/index",
+    "pages/rechargeRecord/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

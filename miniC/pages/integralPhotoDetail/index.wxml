@@ -1,0 +1,48 @@
+<!--pages/integralPhotoDetail/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="积分详情"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="margin-top: 25rpx;">
+    <view style="width: 100%;">
+      <view class="flex-box" style="position: relative; height: 130rpx; letter-spacing: 10rpx;">
+        <image src="/img/linearGradient.png" style="width: 100%; height: 100%; z-index: -1;" class="absolute" />
+        <text wx:if="{{ !pr_member_consume_id }}" class="bold-font">待提交</text>
+        <text wx:if="{{ memberConsume.approve_status === 'U' }}" class="bold-font" style=" color: #359eff;">待审核</text>
+        <text wx:if="{{ memberConsume.approve_status === 'Y' }}" class="bold-font" style="color: #9ae533;">已审核</text>
+        <text wx:if="{{ memberConsume.approve_status === 'N' }}" class="bold-font" style="color: #e53333;">已驳回</text>
+      </view>
+      <view style="padding: 35rpx 50rpx; font-size: 28rpx; background-color: #fff; border-radius: 0 0 30rpx 30rpx;">
+        <view wx:if="{{ memberConsume.apply_date }}" class="flex-box-start" style="margin-bottom: 35rpx;">
+          <text class="bold-font" style="width: 120rpx; text-align: center; margin-right: 20rpx; font-size: 28rpx;">提交时间</text>
+          <text style="color: #999;">{{ memberConsume.apply_date }}</text>
+        </view>
+        <view class="flex-box-start" style="margin-bottom: 35rpx;">
+          <text class="bold-font" style="width: 120rpx; text-align: center; margin-right: 20rpx; font-size: 28rpx;">消费广场</text>
+          <text style="color: #999;">玖洲道购物公园</text>
+        </view>
+        <view class="flex-box-start" style="align-items: flex-start; margin-bottom: 35rpx;">
+          <text class="bold-font" style="width: 120rpx; text-align: center; margin-right: 20rpx; font-size: 28rpx;">上传小票</text>
+          <image src="{{ memberConsume.receipt_img_url ? IMG_BASE_URL + memberConsume.receipt_img_url : '' }}" style="width: calc(100% - 145rpx);" mode="widthFix"/>
+        </view>
+        <view wx:if="{{ memberConsume.approve_date }}" class="flex-box-start" style="margin-bottom: 35rpx;">
+          <text class="bold-font" style="width: 120rpx; text-align: center; margin-right: 20rpx; font-size: 28rpx;">审核时间</text>
+          <view style="width: calc(100% - 145rpx); color: #999; word-break: break-all;">{{ memberConsume.approve_date }}</view>
+        </view>
+        <view wx:if="{{ memberConsume.integral_value }}" class="flex-box-start" style="margin-bottom: 35rpx;">
+          <text class="bold-font" style="width: 120rpx; text-align: center; margin-right: 20rpx; font-size: 28rpx;">本次积分</text>
+          <view style="width: calc(100% - 145rpx); color: #999; word-break: break-all;">{{ memberConsume.integral_value }}</view>
+        </view>
+        <view wx:if="{{ memberConsume.remark }}" class="flex-box-start">
+          <text class="bold-font" style="width: 120rpx; text-align: center; margin-right: 20rpx; font-size: 28rpx;">驳回原因</text>
+          <view style="width: calc(100% - 145rpx); color: #999; word-break: break-all;">{{ memberConsume.remark }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{ !pr_member_consume_id }}" class="fixed" style="width: 96%; padding-bottom: 30rpx;">
+  <view class="flex-box" style="padding: 25rpx; background: linear-gradient(to bottom, #cafc85, #9ae533); border-radius: 50rpx; box-sizing: border-box;" bind:tap="saveByPhoto">
+    <text class="bold-font">确 认 提 交</text>
+  </view>
+</view>

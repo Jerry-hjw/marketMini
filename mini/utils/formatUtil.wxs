@@ -1,0 +1,55 @@
+//逢三位转逗号,保留两位小数，支持负数
+var formatUtil = {
+  formatMoney: function(num) {
+    if(!num) return '0.00'
+    if(!parseInt(num)) return '0.00'
+    //num = parseInt(num);    
+    var num = num + '';
+    var d = '';
+    if (num.slice(0, 1) == '-'){
+      d = num.slice(0, 1);
+      num = num.slice(1);
+    }
+    var len = num.length;
+    var index = num.indexOf('.');
+    if (index == -1) {
+      num = num + '.00';
+    } else if ((index + 2) == len) {
+      // num = num + '0';
+    }else if ((index + 3) == len) {  //两位小数点不管
+    }else {//如果多于两位小数，去掉多余的小数位
+      num = parseFloat(num).toFixed(2); 
+    }
+    var index = num.indexOf('.'); // 字符出现的位置
+    var num2 = num.slice(-3); // 截取包括小数点的后三个字符
+    num = num.slice(0, index) // 截取字符串到小数点之前
+    var result = '';
+    while (num.length > 3) {
+      result = ',' + num.slice(-3) + result;
+      num = num.slice(0, num.length - 3);
+    }
+    if (parseInt(num) > 0) {
+      result = num + result;
+    }
+    var result =  d + (result + num2); 
+
+    return result
+  },
+  formatFilename: function(str) {
+     var result = ''
+     if(str){
+       if(str.length>10){
+         result = '...'+str.substring(str.length-10)  
+       }else{
+         result = str
+       }
+     }  
+     return result
+  }
+}
+ 
+module.exports = {
+  formatMoney: formatUtil.formatMoney,
+  formatFilename: formatUtil.formatFilename  //暴露接口调用
+}
+ 

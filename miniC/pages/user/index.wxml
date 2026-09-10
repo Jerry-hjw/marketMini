@@ -1,0 +1,70 @@
+<!--pages/member/index.wxml-->
+<view class="main">
+  <navbar top="{{ top }}" title="个人中心"></navbar>
+  <image src="/img/bgImg.png" class="bg-img"></image>
+  <view class="container" style="padding-bottom: 130rpx;">
+    <view style="position: relative; height: 450rpx; padding: 35rpx; width: 100%; box-sizing: border-box;">
+      <image wx:if="{{ member.member_level === '01' }}" src="{{ IMG_BASE_URL + '/member/benefits_01.jpg' }}" class="bg-img" style="z-index: -1; border-radius: 40rpx;"></image>
+      <image wx:elif="{{ member.member_level === '02' }}" src="{{ IMG_BASE_URL + '/member/benefits_02.jpg' }}" class="bg-img" style="z-index: -1; border-radius: 40rpx;"></image>
+      <image wx:elif="{{ member.member_level === '03' }}" src="{{ IMG_BASE_URL + '/member/benefits_03.jpg' }}" class="bg-img" style="z-index: -1; border-radius: 40rpx;"></image>
+      <image wx:else src="/img/VIP.png" class="bg-img" style="z-index: -1;"></image>
+      <view class="flex-box-end">
+        <view class="flex-box-vertical" style="width: 120rpx;" data-url="{{ '/pages/memberBenefits/index?member_level=' + member.member_level + '&member_no=' + (member.member_no || '') }}" bind:tap="toPage">
+          <image src="/img/Ag.png" style="width: 34rpx; height: 35rpx;"/>
+          <text style="font-size: 22rpx; color: #999; margin-top: 3rpx;">会员权益</text>
+        </view>
+      </view>
+      <view class="flex-box-start" style="margin: 30rpx 0;" bind:tap="toUserDetail">
+        <text class="bold-font">{{ member.full_name }}</text>
+        <image src="/img/gold.png" style="width: 30rpx; height: 30rpx; margin-left: 10rpx;" />
+      </view>
+      <view>
+        <view wx:if="{{ member_level_higher }}" class="text">再获得{{ member.nextLevelDiffAmount || 0 }}成长值升级为{{ member_level_higher }}</view>
+        <slider value="{{ member.consumedAmount || 0 }}" max="{{ member.nextLevelConsumeAmount }}" backgroundColor="#999" activeColor="#9ae533" block-size="12" disabled style="margin: 0 15rpx;" />
+        <view class="flex-box-space">
+          <text class="text">{{ member.member_level ? memberLevel[member.member_level] : '' }}</text>
+          <text class="text">{{ member_level_higher }}</text>
+        </view>
+      </view>
+      <view class="flex-box-space" style="margin-top: 30rpx;">
+        <view style="text-align: center;">
+          <view style="font-size: 50rpx;">{{ member.integral_balance || 0 }}</view>
+          <view class="text">会员积分</view>
+        </view>
+        <view style="text-align: center;" data-url="/pages/userCoupon/index" bind:tap="toPage">
+          <view style="font-size: 28rpx;"><text style="font-size: 50rpx; margin-right: 3rpx;">{{ member.coupon_amount || 0 }}</text>张</view>
+          <view class="text">优惠券</view>
+        </view>
+      </view>
+    </view>
+    <view class="flex-box-space" style="margin: 40rpx 0;">
+      <view wx:for="{{ orderStatus }}" wx:key="unique" wx:for-item="os" data-status="{{ os.status }}" bindtap="toOrder" style="flex: 1; text-align: center;">
+        <image src="{{ os.img }}" style="width: 70rpx; height: 70rpx;"></image>
+        <view class="label">{{ os.name }}</view>
+      </view>
+    </view>
+    <view wx:for="{{ functionList }}" wx:key="unique" wx:for-item="item" style="border-top: 1rpx solid #dad7d7; padding: 30rpx 15rpx; box-sizing: border-box; margin: 0 20rpx; width: calc(100% - 40rpx);" class="flex-box-space" data-url="{{ item.url }}" bind:tap="toPage">
+      <view class="flex-box-start">
+        <image src="{{ item.img }}" style="width: 34rpx; height: 35rpx; margin-right: 35rpx;"/>
+        <text class="label">{{ item.name }}</text>
+      </view>
+      <image src="/img/ic_right.png" style="width: 15rpx; height: 28rpx;"></image>
+    </view>
+  </view>
+  <view style="position: fixed; bottom: 0; left: 0; z-index: 10;  transition: 0.7s;">
+    <view wx:if="{{ showDetail }}">
+      <image src="/img/ic_right.png" style="width: 15rpx; height: 28rpx; transform: rotate(180deg);"></image>
+      <view class="flex-box" style="margin: 70rpx 0 60rpx;">
+        <image src="/img/avatarUrl.png" style="width: 120rpx; height: 120rpx; margin-bottom: 20rpx;"></image>
+        <view style="font-size: 30rpx;">点击上传头像</view>
+      </view>
+      <view style="margin-bottom: 40rpx;">基本信息</view>
+      <view class="flex-box-start" style="padding: 30rpx; box-sizing: border-box;">
+        <image src=""></image>
+        <text></text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<menu menuIndex="{{ 3 }}" memberType="{{ member.member_type }}" fullName="{{ member.full_name }}" prMemberId="{{ member.pr_member_id }}"></menu>
